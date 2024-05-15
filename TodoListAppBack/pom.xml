@@ -9,14 +9,19 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.coulon.todo.app</groupId>
-	<artifactId>back.todo.spring.app</artifactId>
+	<artifactId>TodoListAppBack</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Todo Spring App</name>
-	<description>Demo project for Spring Boot</description>
+
 	<properties>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>com.coulon.todo.app</groupId>
+			<artifactId>TodoListAppCommon</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>

@@ -1,4 +1,4 @@
-package com.coulon.todo.app.back.db.model;
+package com.coulon.todo.app.common.dto;
 
 public enum TodoListElementStatus {
 
@@ -6,5 +6,6 @@ public enum TodoListElementStatus {
     DONE,
     STARTED,
     ALMOST_DONE,
-    ABANDONED;
+    POSTPONED,
+    ABANDONED
 }

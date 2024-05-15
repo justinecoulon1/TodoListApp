@@ -29,7 +29,7 @@ public class TitleBarPanel extends JPanel {
         titleLabel.setFont(TodoListAppConstants.TITLE_FONT);
         titleLabel.setBackground(this.getBackground());
         titleLabel.setForeground(TodoListAppConstants.LIGHT_FONT_COLOR);
-        this.add(titleLabel," aligny center, pushx");
+        this.add(titleLabel, " aligny center, pushx");
 
         JPanel buttonPanel = new JPanel(new MigLayout("ins 0, gap 0"));
         buttonPanel.setBackground(TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR);
@@ -40,7 +40,7 @@ public class TitleBarPanel extends JPanel {
         JButton closeButton = ButtonUtils.createBigButtonWithoutBorder(UiIcons.DELETE);
         buttonPanel.add(closeButton, "growy, alignx right");
         closeButton.addActionListener(actionEvent -> System.exit(0));
-        this.add(buttonPanel,"aligny top, alignx right");
+        this.add(buttonPanel, "aligny top, alignx right");
 
         WindowDragListener dragListener = new WindowDragListener();
         this.addMouseListener(dragListener);

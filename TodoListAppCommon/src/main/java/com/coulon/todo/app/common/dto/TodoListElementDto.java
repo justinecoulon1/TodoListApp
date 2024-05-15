@@ -1,24 +1,10 @@
-package com.coulon.todo.app.back.db.model;
+package com.coulon.todo.app.common.dto;
 
-import com.coulon.todo.app.common.dto.TodoListElementStatus;
-
-public class TodoListElement {
+public class TodoListElementDto {
 
     private Long id;
     private String description;
     private TodoListElementStatus todoListElementStatus;
-    private TodoList todoList;
-
-    public TodoListElement() {
-    }
-
-    public TodoList getTodoList() {
-        return todoList;
-    }
-
-    public void setTodoList(TodoList todoList) {
-        this.todoList = todoList;
-    }
 
     public Long getId() {
         return id;

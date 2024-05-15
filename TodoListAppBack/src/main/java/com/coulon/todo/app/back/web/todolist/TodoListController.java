@@ -1,10 +1,10 @@
 package com.coulon.todo.app.back.web.todolist;
 
 import com.coulon.todo.app.back.db.model.TodoList;
-import com.coulon.todo.app.back.db.model.TodoListElement;
 import com.coulon.todo.app.back.web.mappers.TodoListMapper;
-import com.coulon.todo.app.back.web.todolist.dto.CreateTodoListRequestDto;
-import com.coulon.todo.app.back.web.todolist.dto.TodoListDto;
+import com.coulon.todo.app.common.dto.CreateTodoListRequestDto;
+import com.coulon.todo.app.common.dto.TodoListDto;
+import com.coulon.todo.app.common.dto.TodoListElementDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,37 +22,40 @@ public class TodoListController {
     }
 
     @PostMapping
-    public TodoListDto createTodoList(@RequestBody CreateTodoListRequestDto createTodoListRequestDto) { //comment inclure les dto
+    public TodoListDto createTodoList(@RequestBody CreateTodoListRequestDto createTodoListRequestDto) {
         String todoListName = createTodoListRequestDto.getTodoListName();
         String todoListUserName = createTodoListRequestDto.getUserName();
         TodoList todoList = todoListService.createTodoList(todoListName, todoListUserName);
         return todoListMapper.entityToDto(todoList);
     }
 
+    @PostMapping("/update")
+    public TodoListDto updateTodoList(@RequestBody TodoListDto todoListDto) {
+        String todoListName = todoListDto.getName();
+        Long id = todoListDto.getId();
+        List<TodoListElementDto> todoListElementDtos = todoListDto.getTodoListElementDtos();
+        return todoListMapper.entityToDto(todoListService.updateTodoList(todoListName, id, todoListElementDtos));
+    }
+
     @PostMapping("/{id}/delete")
-    public TodoListDto deleteTodoList(@PathVariable Long id) { //comment inclure les dto
+    public TodoListDto deleteTodoList(@PathVariable Long id) {
         TodoList deletedTodoList = todoListService.deleteTodoList(id);
         return todoListMapper.entityToDto(deletedTodoList);
     }
 
     @GetMapping
-    public List<TodoListDto> getTodoLists(@RequestParam String userName, @RequestParam String searchedName) { //comment inclure les dto
+    public List<TodoListDto> getTodoLists(@RequestParam String userName, @RequestParam String searchedName) {
         return todoListMapper.entitiesToDtos(todoListService.findTodoLists(userName, searchedName));
     }
 
+    @GetMapping("/{id}")
+    public TodoListDto getTodoListById(@PathVariable Long id) {
+        return todoListMapper.entityToDto(todoListService.getTodoListById(id));
+    }
+
     @GetMapping("/all")
-    public List<TodoListDto> getAllTodoList() { //comment inclure les dto
+    public List<TodoListDto> getAllTodoList() {
         return todoListMapper.entitiesToDtos(todoListService.getAllTodoList());
-    }
-
-    @PostMapping("/element")
-    public TodoListElement createTodoListElement(TodoList todoList) {
-        return todoListService.createTodoListElement(todoList);
-    }
-
-    @PostMapping("/element/{id}/delete")
-    public TodoListElement deleteTodoListElement(Long id) {
-        return todoListService.deleteTodoListElement(id);
     }
 
 }

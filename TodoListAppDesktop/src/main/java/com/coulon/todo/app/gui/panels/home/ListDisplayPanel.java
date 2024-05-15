@@ -1,16 +1,22 @@
 package com.coulon.todo.app.gui.panels.home;
 
+import com.coulon.todo.app.common.dto.TodoListDto;
 import com.coulon.todo.app.utils.ui.TodoListAppConstants;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ListDisplayPanel extends JPanel {
 
+    private final List<TodoListCardPanel> todoListCardPanels = new ArrayList<>();
+
     private final JPanel listContainerPanel;
+
     public ListDisplayPanel() {
         this.setLayout(new MigLayout("fill, nogrid, ins 0"));
-        this.setBackground(TodoListAppConstants.BACKGROUND_COLOR);
+        this.setBackground(TodoListAppConstants.GENERAL_BACKGROUND_COLOR);
 
         listContainerPanel = new JPanel(new MigLayout("fillx, ins 0"));
         listContainerPanel.setBackground(getBackground());
@@ -23,10 +29,36 @@ public class ListDisplayPanel extends JPanel {
 
     }
 
-    public void addTodoListPanel() {
-        TodoListPanel todoListPanel = new TodoListPanel();
-        listContainerPanel.add(todoListPanel, "h 50, wrap, growx");
-        super.getRootPane().updateUI();
+    public void clearTodoListCardPanels() {
+        todoListCardPanels.clear();
+        listContainerPanel.removeAll();
+    }
+
+    public TodoListCardPanel addTodoListCardPanel(TodoListDto todoListDto) {
+        TodoListCardPanel todoListCardPanel = new TodoListCardPanel(todoListDto, this);
+        todoListCardPanels.add(todoListCardPanel);
+        listContainerPanel.add(todoListCardPanel, "h 50, wrap, growx");
+        if (super.getRootPane() != null) {
+            super.getRootPane().updateUI();
+        }
+        return todoListCardPanel;
+    }
+
+    public void deleteTodoListCardPanel(TodoListDto todoListDto) {
+        TodoListCardPanel toDeleteTodoListCardPanel = null;
+        for (TodoListCardPanel todoListCardPanel : todoListCardPanels) {
+            if (todoListCardPanel.getTodoListDto().getId() == todoListDto.getId()) {
+                toDeleteTodoListCardPanel = todoListCardPanel;
+                break;
+            }
+        }
+        if (toDeleteTodoListCardPanel != null) {
+            todoListCardPanels.remove(toDeleteTodoListCardPanel);
+            listContainerPanel.remove(toDeleteTodoListCardPanel);
+            if (super.getRootPane() != null) {
+                super.getRootPane().updateUI();
+            }
+        }
     }
 
 }

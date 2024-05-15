@@ -10,10 +10,12 @@ public enum UiIcons {
     TODO_LOGO("/icons/todo_list.png"),
     MINIMIZE("/icons/minimize.png"),
     ADD("/icons/add.png"),
-    MODIFY("/icons/modify.png"),
+    EDIT("/icons/modify.png"),
     VALIDATE("/icons/validate.png"),
     NORMAL_TODO("/icons/normal_todo.png"),
     TIMED_TODO("/icons/timed_todo.png"),
+    PLUS("/icons/plus.png"),
+    HOME("/icons/home.png"),
     DELETE("/icons/close.png");
 
     private BufferedImage image;

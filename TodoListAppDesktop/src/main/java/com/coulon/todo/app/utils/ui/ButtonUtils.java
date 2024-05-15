@@ -8,13 +8,9 @@ import java.awt.image.BufferedImage;
 
 public class ButtonUtils {
 
-    public static JButton createBigButton(UiIcons icon) {
-        JButton button = new JButton();
-        BufferedImage image = ImageUtils.resizeImage(icon.getImage(), 35, 35);
-        button.setBackground(TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR);
-        button.setIcon(new ImageIcon(image));
-        button.setBorder(BorderFactory.createLineBorder(TodoListAppConstants.BORDERS_AND_SEPARATORS, 3));
-        button.setFocusable(false);
+    public static JButton createBigButtonWithBorder(UiIcons icon) {
+        JButton button = createBigButtonWithoutBorder(icon);
+        button.setBorder(BorderFactory.createLineBorder(TodoListAppConstants.BORDERS_AND_SEPARATOR_COLOR, 3));
         return button;
     }
 
@@ -25,16 +21,24 @@ public class ButtonUtils {
         button.setIcon(new ImageIcon(image));
         button.setBorder(null);
         button.setFocusable(false);
+        button.addMouseListener(new ButtonDefaultMouseAdapter(button));
         return button;
     }
 
-    public static JButton createSmallButton(UiIcons icon) {
+    public static JButton createSmallButtonWithoutBorder(UiIcons icon) {
         JButton button = new JButton();
         BufferedImage image = ImageUtils.resizeImage(icon.getImage(), 15, 15);
         button.setBackground(TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR);
         button.setIcon(new ImageIcon(image));
         button.setBorder(null);
         button.setFocusable(false);
+        button.addMouseListener(new ButtonDefaultMouseAdapter(button));
+        return button;
+    }
+
+    public static JButton createSmallButtonWithBorder(UiIcons icon) {
+        JButton button = createSmallButtonWithoutBorder(icon);
+        button.setBorder(BorderFactory.createLineBorder(TodoListAppConstants.BORDERS_AND_SEPARATOR_COLOR, 2));
         return button;
     }
 

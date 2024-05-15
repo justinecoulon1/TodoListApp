@@ -1,4 +1,4 @@
-package com.coulon.todo.app.back.web.todolist.dto;
+package com.coulon.todo.app.common.dto;
 
 public class CreateTodoListRequestDto {
 
