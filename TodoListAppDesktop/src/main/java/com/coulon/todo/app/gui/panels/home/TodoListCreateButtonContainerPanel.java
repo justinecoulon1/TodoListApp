@@ -17,7 +17,6 @@ import java.awt.image.BufferedImage;
 
 public class TodoListCreateButtonContainerPanel extends JPanel {
 
-
     public TodoListCreateButtonContainerPanel() {
         this.setLayout(new MigLayout("fill, nogrid, ins 10"));
         this.setBackground(TodoListAppConstants.GENERAL_BACKGROUND_COLOR);

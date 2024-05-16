@@ -5,7 +5,6 @@ import com.coulon.todo.app.back.db.model.TodoListElement;
 import com.coulon.todo.app.back.db.model.User;
 import com.coulon.todo.app.back.web.user.UserService;
 import com.coulon.todo.app.common.dto.TodoListElementDto;
-import com.coulon.todo.app.common.dto.TodoListElementStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -42,9 +41,9 @@ public class TodoListService {
         for (TodoListElementDto todoListElementDto : todoListElementDtos) {
             Long todoListElementDtoId = todoListElementDto.getId();
             if (todoListElementDtoId == null || !existingElementIds.contains(todoListElementDtoId)) {
-                createTodoListElement(todoList, todoListElementDto.getDescription());
+                createTodoListElement(todoList, todoListElementDto);
             } else {
-                updateTodoListElement(todoListElementById.get(todoListElementDtoId), todoListElementDto.getDescription());
+                updateTodoListElement(todoListElementDto);
             }
         }
         List<Long> newElementIds = todoListElementDtos.stream().map(TodoListElementDto::getId).toList();
@@ -77,14 +76,14 @@ public class TodoListService {
         return todoListStream.toList();
     }
 
-    private TodoListElement createTodoListElement(TodoList todoList, String todoListElementDescription) {
+    private TodoListElement createTodoListElement(TodoList todoList, TodoListElementDto todoListElementDto) {
         TodoListElement todoListElement = new TodoListElement();
         todoListElement.setId(todoListElementIdGenerator.getAndIncrement());
-        todoListElement.setDescription(todoListElementDescription);
-        todoListElement.setTodoListElementStatus(TodoListElementStatus.NOT_DONE);
+        todoListElement.setDescription(todoListElementDto.getDescription());
+        todoListElement.setTodoListElementStatus(todoListElementDto.getTodoListElementStatus());
         todoListElement.setTodoList(todoList);
         todoList.getTodoListElements().add(todoListElement);
-        todoListElementById.put(todoListElement.getId(),todoListElement);
+        todoListElementById.put(todoListElement.getId(), todoListElement);
         return todoListElement;
     }
 
@@ -95,8 +94,11 @@ public class TodoListService {
         }
         return deletedTodoListElement;
     }
-    private TodoListElement updateTodoListElement(TodoListElement todoListElement, String todoListElementDescription) {
-        todoListElement.setDescription(todoListElementDescription);
+
+    public TodoListElement updateTodoListElement(TodoListElementDto todoListElementDto) {
+        TodoListElement todoListElement = todoListElementById.get(todoListElementDto.getId());
+        todoListElement.setDescription(todoListElementDto.getDescription());
+        todoListElement.setTodoListElementStatus(todoListElementDto.getTodoListElementStatus());
         return todoListElement;
     }
 

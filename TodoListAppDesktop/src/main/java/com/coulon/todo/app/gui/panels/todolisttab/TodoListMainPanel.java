@@ -17,7 +17,7 @@ public class TodoListMainPanel extends JPanel {
         this.setBackground(TodoListAppConstants.GENERAL_BACKGROUND_COLOR);
 
         todoListNamePanel = new TodoListNamePanel(todoListDto, displayMode, this);
-        todoListElementsListDisplayPanel = new TodoListElementsListDisplayPanel(todoListDto.getTodoListElementDtos());
+        todoListElementsListDisplayPanel = new TodoListElementsListDisplayPanel(todoListDto);
 
 
         this.add(todoListNamePanel, "growx, aligny top, h 70!, wrap");

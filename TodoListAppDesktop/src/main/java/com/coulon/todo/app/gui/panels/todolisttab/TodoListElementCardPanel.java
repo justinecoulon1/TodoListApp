@@ -1,23 +1,26 @@
 package com.coulon.todo.app.gui.panels.todolisttab;
 
 import com.coulon.todo.app.common.dto.TodoListElementDto;
+import com.coulon.todo.app.common.dto.TodoListElementStatus;
+import com.coulon.todo.app.gui.panels.todolisttab.status.TodoListElementStatusSelectorLabel;
+import com.coulon.todo.app.gui.panels.todolisttab.status.TodoListElementStatusSelectorLabelListener;
+import com.coulon.todo.app.utils.external.BackEndRequestProcessor;
 import com.coulon.todo.app.utils.ui.ButtonUtils;
 import com.coulon.todo.app.utils.ui.DisplayMode;
 import com.coulon.todo.app.utils.ui.TodoListAppConstants;
-import com.coulon.todo.app.utils.ui.images.ImageUtils;
 import com.coulon.todo.app.utils.ui.images.UiIcons;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
 
-public class TodoListElementCardPanel extends JPanel {
+public class TodoListElementCardPanel extends JPanel implements TodoListElementStatusSelectorLabelListener {
 
     private final TodoListElementDto todoListElementDto;
     private final JTextField todoListElementDescriptionTextField;
     private final JButton deleteTodoListButton;
     private final TodoListElementsListDisplayPanel todoListElementsListDisplayPanel;
+    private final TodoListElementStatusSelectorLabel todoListElementStatusSelectorLabel;
     private DisplayMode displayMode;
 
     public TodoListElementCardPanel(TodoListElementDto todoListElementDto, DisplayMode displayMode, TodoListElementsListDisplayPanel todoListElementsListDisplayPanel) {
@@ -28,14 +31,16 @@ public class TodoListElementCardPanel extends JPanel {
         this.displayMode = displayMode;
         this.todoListElementsListDisplayPanel = todoListElementsListDisplayPanel;
 
-        JLabel todoImageLabel = new JLabel();
-        todoImageLabel.setBackground(TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR);
-        todoImageLabel.setOpaque(true);
-        BufferedImage todoImage = ImageUtils.resizeImage(UiIcons.NORMAL_TODO.getImage(), 32, 32);
-        ImageIcon imageIcon = new ImageIcon(todoImage);
-        todoImageLabel.setIcon(imageIcon);
-        todoImageLabel.setBorder(BorderFactory.createLineBorder(TodoListAppConstants.BORDERS_AND_SEPARATOR_COLOR, 3));
-        this.add(todoImageLabel, "aligny center, alignx left, gapbefore 10");
+        TodoListElementStatus status = todoListElementDto.getTodoListElementStatus();
+        if (status == null) {
+            status = TodoListElementStatus.TODO;
+        }
+
+        todoListElementStatusSelectorLabel = new TodoListElementStatusSelectorLabel(status, this);
+        todoListElementStatusSelectorLabel.setBackground(TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR);
+        todoListElementStatusSelectorLabel.setOpaque(true);
+        todoListElementStatusSelectorLabel.setBorder(BorderFactory.createLineBorder(TodoListAppConstants.BORDERS_AND_SEPARATOR_COLOR, 3));
+        this.add(todoListElementStatusSelectorLabel, "aligny center, alignx left, gapbefore 10");
 
         todoListElementDescriptionTextField = new JTextField();
         todoListElementDescriptionTextField.setText(todoListElementDto.getDescription());
@@ -88,4 +93,18 @@ public class TodoListElementCardPanel extends JPanel {
     public JTextField getTodoListElementDescriptionTextField() {
         return todoListElementDescriptionTextField;
     }
+
+    public TodoListElementStatusSelectorLabel getTodoListElementStatusSelectorLabel() {
+        return todoListElementStatusSelectorLabel;
+    }
+
+    @Override
+    public void onStatusSelected(TodoListElementStatus selectedStatus) {
+        todoListElementStatusSelectorLabel.setSelectedStatus(selectedStatus);
+        if (displayMode == DisplayMode.READ) {
+            todoListElementDto.setTodoListElementStatus(selectedStatus);
+            BackEndRequestProcessor.INSTANCE.updateTodoListElement(todoListElementDto);
+        }
+    }
+
 }

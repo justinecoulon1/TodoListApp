@@ -8,12 +8,18 @@ import java.io.InputStream;
 public enum UiIcons {
 
     TODO_LOGO("/icons/todo_list.png"),
+    NORMAL_TODO("/icons/normal_todo.png"),
+    TIMED_TODO("/icons/timed_todo.png"),
     MINIMIZE("/icons/minimize.png"),
+    TODO("/icons/TODO.png"),
+    DONE("/icons/DONE.png"),
+    STARTED("/icons/STARTED.png"),
+    NEARLY_DONE("/icons/NEARLY_DONE.png"),
+    POSTPONED("/icons/POSTPONED.png"),
+    ABANDONED("/icons/ABANDONED.png"),
     ADD("/icons/add.png"),
     EDIT("/icons/modify.png"),
     VALIDATE("/icons/validate.png"),
-    NORMAL_TODO("/icons/normal_todo.png"),
-    TIMED_TODO("/icons/timed_todo.png"),
     PLUS("/icons/plus.png"),
     HOME("/icons/home.png"),
     DELETE("/icons/close.png");
@@ -31,4 +37,5 @@ public enum UiIcons {
     public BufferedImage getImage() {
         return image;
     }
+
 }

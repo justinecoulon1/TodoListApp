@@ -1,5 +1,6 @@
 package com.coulon.todo.app.gui.panels.todolisttab;
 
+import com.coulon.todo.app.common.dto.TodoListDto;
 import com.coulon.todo.app.common.dto.TodoListElementDto;
 import com.coulon.todo.app.utils.ui.DisplayMode;
 import com.coulon.todo.app.utils.ui.TodoListAppConstants;
@@ -15,7 +16,7 @@ public class TodoListElementsListDisplayPanel extends JPanel {
 
     private final JPanel todoListElementsListContainerPanel;
 
-    public TodoListElementsListDisplayPanel(List<TodoListElementDto> todoListElementDtos) {
+    public TodoListElementsListDisplayPanel(TodoListDto todoListDto) {
         this.setLayout(new MigLayout("fill, nogrid, ins 0"));
         this.setBackground(TodoListAppConstants.GENERAL_BACKGROUND_COLOR);
 
@@ -28,7 +29,7 @@ public class TodoListElementsListDisplayPanel extends JPanel {
         scrollPane.setBorder(null);
         this.add(scrollPane, "grow, push");
 
-        for (TodoListElementDto todoListElementDto : todoListElementDtos) {
+        for (TodoListElementDto todoListElementDto : todoListDto.getTodoListElementDtos()) {
             addTodoListElementCardPanel(todoListElementDto, DisplayMode.READ);
         }
     }
@@ -61,7 +62,9 @@ public class TodoListElementsListDisplayPanel extends JPanel {
     public List<TodoListElementDto> getUpdatedTodoListElementDtos() {
         List<TodoListElementDto> todoListElementDtos = new ArrayList<>();
         for (TodoListElementCardPanel todoListElementCardPanel : todoListElementCardPanels) {
-            todoListElementCardPanel.getTodoListElementDto().setDescription(todoListElementCardPanel.getTodoListElementDescriptionTextField().getText());
+            TodoListElementDto toUpdateTodoListElementDto = todoListElementCardPanel.getTodoListElementDto();
+            toUpdateTodoListElementDto.setDescription(todoListElementCardPanel.getTodoListElementDescriptionTextField().getText());
+            toUpdateTodoListElementDto.setTodoListElementStatus(todoListElementCardPanel.getTodoListElementStatusSelectorLabel().getSelectedStatus().getTodoListElementStatus());
             todoListElementDtos.add(todoListElementCardPanel.getTodoListElementDto());
         }
         return todoListElementDtos;

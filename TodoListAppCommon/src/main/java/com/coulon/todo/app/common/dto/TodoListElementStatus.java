@@ -2,10 +2,11 @@ package com.coulon.todo.app.common.dto;
 
 public enum TodoListElementStatus {
 
-    NOT_DONE,
+    TODO,
     DONE,
     STARTED,
-    ALMOST_DONE,
+    NEARLY_DONE,
     POSTPONED,
     ABANDONED
+
 }
