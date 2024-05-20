@@ -1,4 +1,4 @@
-package com.coulon.todo.app.gui.panels.todolisttab;
+package com.coulon.todo.app.gui.panels.tabs.todolist;
 
 import com.coulon.todo.app.common.dto.TodoListDto;
 import com.coulon.todo.app.common.dto.TodoListElementDto;

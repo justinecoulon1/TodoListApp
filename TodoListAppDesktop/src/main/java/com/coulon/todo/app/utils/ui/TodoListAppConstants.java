@@ -10,7 +10,8 @@ public class TodoListAppConstants {
     public static final Color PANEL_BACKGROUND_COLOR = new Color(0xE3C3B9);
     public static final Color GENERAL_BACKGROUND_COLOR = new Color(0xF7E0D2);
     public static final Color UI_ELEMENTS_BACKGROUND_COLOR = new Color(0x6E122D);
-    public static final Color HIGHLIGHT_COLOR = new Color(0x861433);
+    public static final Color DARK_HIGHLIGHT_COLOR = new Color(0x861433);
+    public static final Color LIGHT_HIGHLIGHT_COLOR = new Color(0xE1BAAF);
     public static final Color BORDERS_AND_SEPARATOR_COLOR = new Color(0x52081E);
 
     public static final Color APP_BACKGROUND_COLOR = new Color(0x814A59);

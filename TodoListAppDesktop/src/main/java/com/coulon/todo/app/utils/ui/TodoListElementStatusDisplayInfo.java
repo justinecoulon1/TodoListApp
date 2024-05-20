@@ -1,7 +1,9 @@
 package com.coulon.todo.app.utils.ui;
 
 import com.coulon.todo.app.common.dto.TodoListElementStatus;
+import com.coulon.todo.app.utils.ui.images.ImageUtils;
 import com.coulon.todo.app.utils.ui.images.UiIcons;
+import java.awt.image.BufferedImage;
 
 public enum TodoListElementStatusDisplayInfo {
 
@@ -14,12 +16,14 @@ public enum TodoListElementStatusDisplayInfo {
 
     private final String text;
     private final UiIcons uiIcons;
+    private final BufferedImage imageSize32;
     private final TodoListElementStatus todoListElementStatus;
 
     TodoListElementStatusDisplayInfo(String text, UiIcons uiIcons, TodoListElementStatus todoListElementStatus) {
         this.text = text;
         this.uiIcons = uiIcons;
         this.todoListElementStatus = todoListElementStatus;
+        this.imageSize32 = ImageUtils.resizeImage(uiIcons.getImage(), 32, 32);
     }
 
     public String getText() {
@@ -28,6 +32,10 @@ public enum TodoListElementStatusDisplayInfo {
 
     public UiIcons getUiIcons() {
         return uiIcons;
+    }
+
+    public BufferedImage getImageSize32() {
+        return imageSize32;
     }
 
     public TodoListElementStatus getTodoListElementStatus() {

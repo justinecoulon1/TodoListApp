@@ -11,6 +11,7 @@ import com.coulon.todo.app.utils.ui.images.UiIcons;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -24,6 +25,8 @@ public class TodoListCreateButtonContainerPanel extends JPanel {
         JPanel createTodoListButtonPanel = new JPanel(new MigLayout("fill, nogrid, ins 0"));
         createTodoListButtonPanel.setBackground(TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR);
         createTodoListButtonPanel.setBorder(BorderFactory.createLineBorder(TodoListAppConstants.BORDERS_AND_SEPARATOR_COLOR, 3));
+        createTodoListButtonPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        createTodoListButtonPanel.setToolTipText("Create a todo list");
 
         JLabel addImageLabel = new JLabel();
         BufferedImage addImage = ImageUtils.resizeImage(UiIcons.ADD.getImage(), 32, 32);
@@ -46,10 +49,9 @@ public class TodoListCreateButtonContainerPanel extends JPanel {
                 todoListCardPanel.openTodoList(DisplayMode.UPDATE);
             }
         });
-        createTodoListButtonPanel.addMouseListener(new ButtonDefaultMouseAdapter(createTodoListButtonPanel));
+        createTodoListButtonPanel.addMouseListener(new ButtonDefaultMouseAdapter(createTodoListButtonPanel, TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR, TodoListAppConstants.DARK_HIGHLIGHT_COLOR));
 
         this.add(createTodoListButtonPanel, "w 350, h 60!, aligny top, alignx center");
-
     }
 
 }

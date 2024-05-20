@@ -1,9 +1,9 @@
-package com.coulon.todo.app.gui.panels.todolisttab.status;
+package com.coulon.todo.app.gui.panels.tabs.todolist.status;
 
 import com.coulon.todo.app.common.dto.TodoListElementStatus;
+import com.coulon.todo.app.utils.ui.ButtonDefaultMouseAdapter;
 import com.coulon.todo.app.utils.ui.TodoListAppConstants;
 import com.coulon.todo.app.utils.ui.TodoListElementStatusDisplayInfo;
-import com.coulon.todo.app.utils.ui.images.ImageUtils;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
@@ -15,6 +15,7 @@ public class TodoListElementStatusSelectorLabel extends JLabel {
 
     public TodoListElementStatusSelectorLabel(TodoListElementStatus currentStatus, TodoListElementStatusSelectorLabelListener listener) {
         setSelectedStatus(currentStatus);
+        this.addMouseListener(new ButtonDefaultMouseAdapter(this, TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR, TodoListAppConstants.DARK_HIGHLIGHT_COLOR));
 
         JPopupMenu popupMenu = new JPopupMenu();
         for (TodoListElementStatusDisplayInfo elementStatusDisplayInfo : TodoListElementStatusDisplayInfo.values()) {
@@ -43,7 +44,7 @@ public class TodoListElementStatusSelectorLabel extends JLabel {
     }
 
     private ImageIcon buildImageIcon(TodoListElementStatusDisplayInfo elementStatusDisplayInfo) {
-        return new ImageIcon(ImageUtils.resizeImage(elementStatusDisplayInfo.getUiIcons().getImage(), 32, 32));
+        return new ImageIcon(elementStatusDisplayInfo.getImageSize32());
     }
 
     public TodoListElementStatusDisplayInfo getSelectedStatus() {

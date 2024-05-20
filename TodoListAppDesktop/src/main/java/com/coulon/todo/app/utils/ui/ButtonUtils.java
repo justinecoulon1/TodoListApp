@@ -4,6 +4,7 @@ import com.coulon.todo.app.utils.ui.images.ImageUtils;
 import com.coulon.todo.app.utils.ui.images.UiIcons;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class ButtonUtils {
@@ -21,7 +22,8 @@ public class ButtonUtils {
         button.setIcon(new ImageIcon(image));
         button.setBorder(null);
         button.setFocusable(false);
-        button.addMouseListener(new ButtonDefaultMouseAdapter(button));
+        button.addMouseListener(new ButtonDefaultMouseAdapter(button, TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR, TodoListAppConstants.DARK_HIGHLIGHT_COLOR));
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         return button;
     }
 
@@ -32,7 +34,8 @@ public class ButtonUtils {
         button.setIcon(new ImageIcon(image));
         button.setBorder(null);
         button.setFocusable(false);
-        button.addMouseListener(new ButtonDefaultMouseAdapter(button));
+        button.addMouseListener(new ButtonDefaultMouseAdapter(button, TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR, TodoListAppConstants.DARK_HIGHLIGHT_COLOR));
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         return button;
     }
 

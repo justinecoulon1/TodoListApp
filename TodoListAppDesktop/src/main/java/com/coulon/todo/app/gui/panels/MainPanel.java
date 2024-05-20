@@ -10,6 +10,7 @@ import javax.swing.*;
 public class MainPanel extends JPanel {
 
     private final JPanel mainContentPanel = new JPanel(new MigLayout("fill, nogrid, ins 0"));
+    private JPanel currentDisplayedPanel;
 
     public MainPanel() {
         this.setLayout(new MigLayout("fill, nogrid, ins 0, gap 0"));
@@ -24,9 +25,14 @@ public class MainPanel extends JPanel {
     public void setDisplayedPanel(JPanel displayedPanel) {
         mainContentPanel.removeAll();
         mainContentPanel.add(displayedPanel, "grow, push");
+        currentDisplayedPanel = displayedPanel;
         if (super.getRootPane() != null) {
             super.getRootPane().updateUI();
         }
+    }
+
+    public JPanel getCurrentDisplayedPanel() {
+        return currentDisplayedPanel;
     }
 
 }
