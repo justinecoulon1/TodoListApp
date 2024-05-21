@@ -24,9 +24,10 @@ public class TitleBarPanel extends JPanel {
         menuImageLabel.setToolTipText("Menu");
         menuImageLabel.setBackground(TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR);
         menuImageLabel.setOpaque(true);
-        BufferedImage menuImage = ImageUtils.resizeImage(UiIcons.MENU.getImage(), 24, 24);
+        BufferedImage menuImage = ImageUtils.resizeImage(UiIcons.MENU.getImage(), 20, 20);
         ImageIcon menuImageIcon = new ImageIcon(menuImage);
         menuImageLabel.setIcon(menuImageIcon);
+        menuImageLabel.setHorizontalAlignment(SwingConstants.CENTER);
         menuImageLabel.setBorder(BorderFactory.createLineBorder(TodoListAppConstants.BORDERS_AND_SEPARATOR_COLOR, 2));
         menuImageLabel.addMouseListener(new ButtonDefaultMouseAdapter(menuImageLabel, TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR, TodoListAppConstants.DARK_HIGHLIGHT_COLOR));
         menuImageLabel.addMouseListener(new MouseAdapter() {
@@ -40,7 +41,7 @@ public class TitleBarPanel extends JPanel {
             }
         });
         menuImageLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        this.add(menuImageLabel, "aligny center, alignx left, gapbefore 10");
+        this.add(menuImageLabel, "aligny center, alignx left, w 30!, h 30!, gapbefore 10");
 
         JLabel appLogoIconLabel = new JLabel();
         appLogoIconLabel.setBackground(this.getBackground());

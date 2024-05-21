@@ -22,7 +22,7 @@ public class TodoListPopUpManager {
 
         JFrame todoPopUpFrame = new JFrame();
         todoPopUpFrame.setUndecorated(true);
-        todoPopUpFrame.setSize(400, 700);
+        todoPopUpFrame.setSize(280, 500);
         todoPopUpFrame.setResizable(false);
         todoPopUpFrame.setIconImage(UiIcons.TODO_LOGO.getImage());
         todoPopUpFrame.setTitle("Todo List" + todoListDto.getName());

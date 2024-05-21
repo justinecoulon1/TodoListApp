@@ -16,13 +16,18 @@ public class ButtonUtils {
     }
 
     public static JButton createBigButtonWithoutBorder(UiIcons icon) {
+        JButton button = createBigButtonWithoutBorderAndDefaultAdapter(icon);
+        button.addMouseListener(new ButtonDefaultMouseAdapter(button, TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR, TodoListAppConstants.DARK_HIGHLIGHT_COLOR));
+        return button;
+    }
+
+    public static JButton createBigButtonWithoutBorderAndDefaultAdapter(UiIcons icon) {
         JButton button = new JButton();
         BufferedImage image = ImageUtils.resizeImage(icon.getImage(), 35, 35);
         button.setBackground(TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR);
         button.setIcon(new ImageIcon(image));
         button.setBorder(null);
         button.setFocusable(false);
-        button.addMouseListener(new ButtonDefaultMouseAdapter(button, TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR, TodoListAppConstants.DARK_HIGHLIGHT_COLOR));
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         return button;
     }

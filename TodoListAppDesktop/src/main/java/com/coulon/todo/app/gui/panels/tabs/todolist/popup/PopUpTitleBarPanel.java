@@ -2,6 +2,7 @@ package com.coulon.todo.app.gui.panels.tabs.todolist.popup;
 
 import com.coulon.todo.app.common.dto.TodoListDto;
 import com.coulon.todo.app.gui.titlebar.WindowDragListener;
+import com.coulon.todo.app.utils.ui.ButtonToggleMouseAdapter;
 import com.coulon.todo.app.utils.ui.ButtonUtils;
 import com.coulon.todo.app.utils.ui.TodoListAppConstants;
 import com.coulon.todo.app.utils.ui.images.ImageUtils;
@@ -15,6 +16,8 @@ import java.awt.image.BufferedImage;
 
 public class PopUpTitleBarPanel extends JPanel {
 
+    private final JButton pinButton;
+
     public PopUpTitleBarPanel(TodoListDto todoListDto) {
         this.setLayout(new MigLayout("ins 0, gap 0, fill"));
         this.setBackground(TodoListAppConstants.HEADER_BACKGROUND_COLOR);
@@ -27,7 +30,7 @@ public class PopUpTitleBarPanel extends JPanel {
         this.add(appLogoIconLabel, "gapbefore 10, gapafter 15, aligny center");
 
         JLabel titleLabel = new JLabel();
-        titleLabel.setText("To-do List");
+        titleLabel.setText(todoListDto.getName());
         titleLabel.setFont(TodoListAppConstants.SMALL_TITLE_FONT);
         titleLabel.setBackground(this.getBackground());
         titleLabel.setForeground(TodoListAppConstants.LIGHT_FONT_COLOR);
@@ -35,6 +38,22 @@ public class PopUpTitleBarPanel extends JPanel {
 
         JPanel buttonPanel = new JPanel(new MigLayout("ins 0, gap 0"));
         buttonPanel.setBackground(TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR);
+
+        pinButton = ButtonUtils.createBigButtonWithoutBorderAndDefaultAdapter(UiIcons.PIN);
+        pinButton.addMouseListener(new ButtonToggleMouseAdapter(pinButton, TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR, TodoListAppConstants.DARK_HIGHLIGHT_COLOR) {
+            @Override
+            protected void onToggleOn() {
+                updatePinnedToFront(true);
+            }
+
+            @Override
+            protected void onToggleOff() {
+                updatePinnedToFront(false);
+            }
+        });
+        pinButton.setToolTipText("Pin");
+        buttonPanel.add(pinButton, "aligny center, alignx right");
+
         JButton closeButton = ButtonUtils.createBigButtonWithoutBorder(UiIcons.DELETE);
         buttonPanel.add(closeButton, "growy, alignx right");
         closeButton.addMouseListener(new MouseAdapter() {
@@ -49,6 +68,11 @@ public class PopUpTitleBarPanel extends JPanel {
         WindowDragListener dragListener = new WindowDragListener(this);
         this.addMouseListener(dragListener);
         this.addMouseMotionListener(dragListener);
+    }
+
+    private void updatePinnedToFront(boolean isPinned) {
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        frame.setAlwaysOnTop(isPinned);
     }
 
 }

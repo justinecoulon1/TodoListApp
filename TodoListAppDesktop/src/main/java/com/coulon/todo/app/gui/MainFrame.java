@@ -13,6 +13,7 @@ public class MainFrame extends JFrame {
         this.setIconImage(UiIcons.TODO_LOGO.getImage());
         this.setTitle("Todo List");
         this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.setContentPane(AppPanels.MAIN_PANEL);
 

@@ -21,7 +21,7 @@ public enum UiIcons {
     EDIT("/icons/modify.png"),
     VALIDATE("/icons/validate.png"),
     OPEN("/icons/open.png"),
-    PLUS("/icons/plus.png"),
+    PIN("/icons/pin.png"),
     HOME("/icons/home.png"),
     MENU("/icons/menu.png"),
     SETTINGS("/icons/settings.png"),
