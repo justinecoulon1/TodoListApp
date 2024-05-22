@@ -17,31 +17,31 @@ This application allows you to create todo-lists and to manage them.
 
 Here is the architecture of the app:
 
-![TodoListAppArchitecture.png](readme_screenshots/TodoListAppArchitecture.png)
+![TodoListAppArchitecture.png](TodoListAppDesktop/readme_screenshots/TodoListAppArchitecture.png)
 
 ### Todo-list tab
 
-![TodoListCreationScreen.png](readme_screenshots/TodoListCreationScreen.png)
+![TodoListCreationScreen.png](TodoListAppDesktop/readme_screenshots/TodoListCreationScreen.png)
 
 In the todo-list tab, you can create todo-lists and save them.
 
 You can open your todo-list by clicking the one you want. To update the tasks (add or change the content) of your todo,
 you need to click on the edit button.
 
-![TodoListMainOpenEditMode.png](readme_screenshots/TodoListMainOpenEditMode.png)
+![TodoListMainOpenEditMode.png](TodoListAppDesktop/readme_screenshots/TodoListMainOpenEditMode.png)
 
 However, if you only want to update the status (todo, done, started, nearly done, postponed, abandoned) of your task,
 you can do it without clicking the edit.
 
-![TodoListElementsStatus.png](readme_screenshots/TodoListElementsStatus.png)
+![TodoListElementsStatus.png](TodoListAppDesktop/readme_screenshots/TodoListElementsStatus.png)
 
 If you want your todo list in a smaller frame, you can open it using the button right under the edit button.
 
-![TodoListMainScreenPopUp.png](readme_screenshots/TodoListMainScreenPopUp.png)
+![TodoListMainScreenPopUp.png](TodoListAppDesktop/readme_screenshots/TodoListMainScreenPopUp.png)
 
 If you want to pin it, so that it stays on top of all your application you can use the pin button at the top of the
 pop-up frame.
-![TodoListPopUpPin.png](readme_screenshots/TodoListPopUpPin.png)
+![TodoListPopUpPin.png](TodoListAppDesktop/readme_screenshots/TodoListPopUpPin.png)
 
 In the pop-up frame, you will be able to update the status of your tasks, but not edit the todo-list in itself.
 
@@ -50,7 +50,7 @@ In the pop-up frame, you will be able to update the status of your tasks, but no
 You can access the menu tab by clicking the menu button at the left of the application logo. In this tab, you will be
 able to access the settings tab and the statistics tab (feature to come).
 
-![TodoListMenuScreen.png](readme_screenshots/TodoListMenuScreen.png)
+![TodoListMenuScreen.png](TodoListAppDesktop/readme_screenshots/TodoListMenuScreen.png)
 
 ## Roadmap
 
