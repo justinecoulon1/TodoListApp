@@ -41,6 +41,7 @@ If you want your todo list in a smaller frame, you can open it using the button 
 
 If you want to pin it, so that it stays on top of all your application you can use the pin button at the top of the
 pop-up frame.
+
 ![TodoListPopUpPin.png](TodoListAppDesktop/readme_screenshots/TodoListPopUpPin.png)
 
 In the pop-up frame, you will be able to update the status of your tasks, but not edit the todo-list in itself.
