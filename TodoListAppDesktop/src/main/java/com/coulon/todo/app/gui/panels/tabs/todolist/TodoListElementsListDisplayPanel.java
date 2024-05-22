@@ -1,6 +1,5 @@
 package com.coulon.todo.app.gui.panels.tabs.todolist;
 
-import com.coulon.todo.app.common.dto.TodoListDto;
 import com.coulon.todo.app.common.dto.TodoListElementDto;
 import com.coulon.todo.app.utils.ui.DisplayMode;
 import com.coulon.todo.app.utils.ui.TodoListAppConstants;
@@ -13,10 +12,9 @@ import java.util.List;
 public class TodoListElementsListDisplayPanel extends JPanel {
 
     private final List<TodoListElementCardPanel> todoListElementCardPanels = new ArrayList<>();
-
     private final JPanel todoListElementsListContainerPanel;
 
-    public TodoListElementsListDisplayPanel(TodoListDto todoListDto) {
+    public TodoListElementsListDisplayPanel() {
         this.setLayout(new MigLayout("fill, nogrid, ins 0"));
         this.setBackground(TodoListAppConstants.GENERAL_BACKGROUND_COLOR);
 
@@ -28,10 +26,6 @@ public class TodoListElementsListDisplayPanel extends JPanel {
         scrollPane.getVerticalScrollBar().setBackground(TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR);
         scrollPane.setBorder(null);
         this.add(scrollPane, "grow, push");
-
-        for (TodoListElementDto todoListElementDto : todoListDto.getTodoListElementDtos()) {
-            addTodoListElementCardPanel(todoListElementDto, DisplayMode.READ);
-        }
     }
 
     public void updateDisplayMode(DisplayMode displayMode) {

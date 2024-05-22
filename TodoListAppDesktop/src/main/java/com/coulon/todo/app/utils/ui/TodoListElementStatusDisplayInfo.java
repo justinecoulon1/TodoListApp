@@ -15,23 +15,17 @@ public enum TodoListElementStatusDisplayInfo {
     ABANDONED("Abandoned", UiIcons.ABANDONED, TodoListElementStatus.ABANDONED);
 
     private final String text;
-    private final UiIcons uiIcons;
     private final BufferedImage imageSize32;
     private final TodoListElementStatus todoListElementStatus;
 
     TodoListElementStatusDisplayInfo(String text, UiIcons uiIcons, TodoListElementStatus todoListElementStatus) {
         this.text = text;
-        this.uiIcons = uiIcons;
         this.todoListElementStatus = todoListElementStatus;
         this.imageSize32 = ImageUtils.resizeImage(uiIcons.getImage(), 32, 32);
     }
 
     public String getText() {
         return text;
-    }
-
-    public UiIcons getUiIcons() {
-        return uiIcons;
     }
 
     public BufferedImage getImageSize32() {

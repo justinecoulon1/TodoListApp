@@ -27,14 +27,10 @@ public class TodoListNamePanel extends JPanel {
     private final JButton startUpdateTodoListButton;
     private final JButton openTodoListButton;
     private TodoListDto todoListDto;
-    private final TodoListMainPanel todoListMainPanel;
 
-    public TodoListNamePanel(TodoListDto todoListDto, DisplayMode displayMode, TodoListMainPanel todoListMainPanel) {
+    public TodoListNamePanel() {
         this.setLayout(new MigLayout("fill, nogrid, ins 0"));
         this.setBackground(TodoListAppConstants.PANEL_BACKGROUND_COLOR);
-
-        this.todoListDto = todoListDto;
-        this.todoListMainPanel = todoListMainPanel;
 
         JLabel homeButtonLabel = new JLabel();
         BufferedImage todoImage = ImageUtils.resizeImage(UiIcons.HOME.getImage(), 28, 28);
@@ -57,7 +53,6 @@ public class TodoListNamePanel extends JPanel {
         this.add(homeButtonLabel, "h 70!, w 50!, alignx left");
 
         todoListNameTextField = new JTextField();
-        todoListNameTextField.setText(todoListDto.getName());
         todoListNameTextField.setBackground(getBackground());
         todoListNameTextField.setFont(TodoListAppConstants.DEFAULT_FONT);
         todoListNameTextField.setForeground(TodoListAppConstants.DARK_FONT_COLOR);
@@ -90,14 +85,10 @@ public class TodoListNamePanel extends JPanel {
         buttonPanel.add(cancelUpdateButton, "aligny bottom, alignx right, w 28!, h 30!");
 
         this.add(buttonPanel, "aligny top, alignx right");
-
-        updateDisplayMode(displayMode);
-
     }
 
     private void handleCancelUpdateButton(ActionEvent actionEvent) {
-        todoListMainPanel.updateDisplayMode(DisplayMode.READ);
-        updateTodoList(todoListDto);
+        AppPanels.TODO_LIST_MAIN_PANEL.updateTodoList(todoListDto, DisplayMode.READ);
         if (super.getRootPane() != null) {
             super.getRootPane().updateUI();
         }
@@ -108,21 +99,20 @@ public class TodoListNamePanel extends JPanel {
     }
 
     private void handleStartUpdateButton(ActionEvent actionEvent) {
-        todoListMainPanel.updateDisplayMode(DisplayMode.UPDATE);
+        AppPanels.TODO_LIST_MAIN_PANEL.updateDisplayMode(DisplayMode.UPDATE);
     }
 
     private void handleValidateUpdateButton(ActionEvent actionEvent) {
         todoListDto.setName(todoListNameTextField.getText());
-        todoListDto.setTodoListElementDtos(todoListMainPanel.getTodoListElementsListDisplayPanel().getUpdatedTodoListElementDtos());
+        todoListDto.setTodoListElementDtos(AppPanels.TODO_LIST_MAIN_PANEL.getTodoListElementsListDisplayPanel().getUpdatedTodoListElementDtos());
         TodoListDto updatedTodoListDto = BackEndRequestProcessor.INSTANCE.updateTodoList(todoListDto);
-        updateTodoList(updatedTodoListDto);
-        todoListMainPanel.updateDisplayMode(DisplayMode.READ);
+        TodoListPopUpManager.INSTANCE.updateTodoPopUp(updatedTodoListDto);
+        AppPanels.TODO_LIST_MAIN_PANEL.updateTodoList(updatedTodoListDto, DisplayMode.READ);
     }
 
     public void updateTodoList(TodoListDto todoListDto) {
         this.todoListDto = todoListDto;
         todoListNameTextField.setText(todoListDto.getName());
-        todoListMainPanel.getTodoListElementsListDisplayPanel().updateTodoListElementsDto(todoListDto.getTodoListElementDtos());
     }
 
     public void updateDisplayMode(DisplayMode displayMode) {

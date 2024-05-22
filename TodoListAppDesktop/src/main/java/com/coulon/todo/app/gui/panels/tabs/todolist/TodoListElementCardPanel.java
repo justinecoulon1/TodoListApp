@@ -1,7 +1,10 @@
 package com.coulon.todo.app.gui.panels.tabs.todolist;
 
+import com.coulon.todo.app.common.dto.TodoListDto;
 import com.coulon.todo.app.common.dto.TodoListElementDto;
 import com.coulon.todo.app.common.dto.TodoListElementStatus;
+import com.coulon.todo.app.gui.AppPanels;
+import com.coulon.todo.app.gui.panels.tabs.todolist.popup.TodoListPopUpManager;
 import com.coulon.todo.app.gui.panels.tabs.todolist.status.TodoListElementStatusSelectorLabel;
 import com.coulon.todo.app.gui.panels.tabs.todolist.status.TodoListElementStatusSelectorLabelListener;
 import com.coulon.todo.app.utils.external.BackEndRequestProcessor;
@@ -29,6 +32,11 @@ public class TodoListElementCardPanel extends JPanel implements TodoListElementS
     public TodoListElementCardPanel(TodoListElementDto todoListElementDto, DisplayMode displayMode, TodoListElementsListDisplayPanel todoListElementsListDisplayPanel) {
         this.setLayout(new MigLayout("fill, nogrid, ins 0, gap 0"));
         this.setBackground(TodoListAppConstants.PANEL_BACKGROUND_COLOR);
+
+        this.todoListElementDto = todoListElementDto;
+        this.displayMode = displayMode;
+        this.todoListElementsListDisplayPanel = todoListElementsListDisplayPanel;
+
         MouseAdapter highlightMouseAdapter = new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -43,10 +51,6 @@ public class TodoListElementCardPanel extends JPanel implements TodoListElementS
             }
         };
         this.addMouseListener(highlightMouseAdapter);
-
-        this.todoListElementDto = todoListElementDto;
-        this.displayMode = displayMode;
-        this.todoListElementsListDisplayPanel = todoListElementsListDisplayPanel;
 
         TodoListElementStatus status = todoListElementDto.getTodoListElementStatus();
         if (status == null) {
@@ -124,7 +128,13 @@ public class TodoListElementCardPanel extends JPanel implements TodoListElementS
         todoListElementStatusSelectorLabel.setSelectedStatus(selectedStatus);
         if (displayMode == DisplayMode.READ) {
             todoListElementDto.setTodoListElementStatus(selectedStatus);
-            BackEndRequestProcessor.INSTANCE.updateTodoListElement(todoListElementDto);
+            TodoListDto updatedTodoListDto = BackEndRequestProcessor.INSTANCE.updateTodoListElement(todoListElementDto);
+            TodoListPopUpManager.INSTANCE.updateTodoPopUp(updatedTodoListDto);
+            TodoListDto currentlyDisplayedTodoList = AppPanels.TODO_LIST_MAIN_PANEL.getTodoListDto();
+            DisplayMode currentDisplayMode = AppPanels.TODO_LIST_MAIN_PANEL.getDisplayMode();
+            if (currentlyDisplayedTodoList != null && updatedTodoListDto.getId() == currentlyDisplayedTodoList.getId() && currentDisplayMode == DisplayMode.READ) {
+                AppPanels.TODO_LIST_MAIN_PANEL.updateTodoList(updatedTodoListDto, DisplayMode.READ);
+            }
         }
     }
 

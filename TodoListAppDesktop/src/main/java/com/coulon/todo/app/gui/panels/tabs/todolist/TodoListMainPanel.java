@@ -12,22 +12,30 @@ public class TodoListMainPanel extends JPanel {
     private final TodoListNamePanel todoListNamePanel;
     private final TodoListElementsListDisplayPanel todoListElementsListDisplayPanel;
     private final AddTodoElementButtonContainerPanel addTodoElementButtonContainerPanel = new AddTodoElementButtonContainerPanel(this);
+    private TodoListDto todoListDto;
+    private DisplayMode displayMode;
 
-    public TodoListMainPanel(TodoListDto todoListDto, DisplayMode displayMode) {
+    public TodoListMainPanel() {
         this.setLayout(new MigLayout("fill, nogrid, ins 0, hidemode 2"));
         this.setBackground(TodoListAppConstants.GENERAL_BACKGROUND_COLOR);
 
-        todoListNamePanel = new TodoListNamePanel(todoListDto, displayMode, this);
-        todoListElementsListDisplayPanel = new TodoListElementsListDisplayPanel(todoListDto);
+        todoListNamePanel = new TodoListNamePanel();
+        todoListElementsListDisplayPanel = new TodoListElementsListDisplayPanel();
 
         this.add(todoListNamePanel, "growx, aligny top, h 70!, wrap");
         this.add(addTodoElementButtonContainerPanel, "growx, aligny top, wrap");
         this.add(todoListElementsListDisplayPanel, "grow, push");
+    }
 
+    public void updateTodoList(TodoListDto todoListDto, DisplayMode displayMode) {
+        this.todoListDto = todoListDto;
+        todoListNamePanel.updateTodoList(todoListDto);
+        todoListElementsListDisplayPanel.updateTodoListElementsDto(todoListDto.getTodoListElementDtos());
         updateDisplayMode(displayMode);
     }
 
     public void updateDisplayMode(DisplayMode displayMode) {
+        this.displayMode = displayMode;
         addTodoElementButtonContainerPanel.setVisible(displayMode == DisplayMode.UPDATE);
         todoListNamePanel.updateDisplayMode(displayMode);
         todoListElementsListDisplayPanel.updateDisplayMode(displayMode);
@@ -35,6 +43,14 @@ public class TodoListMainPanel extends JPanel {
 
     public TodoListElementsListDisplayPanel getTodoListElementsListDisplayPanel() {
         return todoListElementsListDisplayPanel;
+    }
+
+    public TodoListDto getTodoListDto() {
+        return todoListDto;
+    }
+
+    public DisplayMode getDisplayMode() {
+        return displayMode;
     }
 
 }

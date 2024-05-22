@@ -12,11 +12,16 @@ import java.awt.image.BufferedImage;
 
 public class PopUpTodoMainPanel extends JPanel {
 
+    private final PopUpTitleBarPanel popUpTitleBarPanel;
+    private final JLabel todoListTitleLabel;
+    private final TodoListElementsListDisplayPanel todoListElementsListDisplayPanel;
+
     public PopUpTodoMainPanel(TodoListDto todoListDto) {
         this.setLayout(new MigLayout("fill, nogrid, ins 0, hidemode 2"));
         this.setBackground(TodoListAppConstants.GENERAL_BACKGROUND_COLOR);
 
-        this.add(new PopUpTitleBarPanel(todoListDto), "growx, h 42!, aligny top, wrap");
+        popUpTitleBarPanel = new PopUpTitleBarPanel(todoListDto);
+        this.add(popUpTitleBarPanel, "growx, h 42!, aligny top, wrap");
 
         JPanel todoListNamePanel = new JPanel(new MigLayout("fill, nogrid, ins 0"));
         todoListNamePanel.setBackground(TodoListAppConstants.PANEL_BACKGROUND_COLOR);
@@ -30,7 +35,7 @@ public class PopUpTodoMainPanel extends JPanel {
         todoImageLabel.setBorder(BorderFactory.createLineBorder(TodoListAppConstants.BORDERS_AND_SEPARATOR_COLOR, 3));
         todoListNamePanel.add(todoImageLabel, "aligny center, alignx left, gapbefore 10");
 
-        JLabel todoListTitleLabel = new JLabel();
+        todoListTitleLabel = new JLabel();
         todoListTitleLabel.setText(todoListDto.getName());
         todoListTitleLabel.setBackground(todoListNamePanel.getBackground());
         todoListTitleLabel.setFont(TodoListAppConstants.DEFAULT_FONT);
@@ -41,8 +46,21 @@ public class PopUpTodoMainPanel extends JPanel {
 
         this.add(todoListNamePanel, "growx, aligny top, h 70!, wrap");
 
-        TodoListElementsListDisplayPanel todoListElementsListDisplayPanel = new TodoListElementsListDisplayPanel(todoListDto);
+        todoListElementsListDisplayPanel = new TodoListElementsListDisplayPanel();
+        todoListElementsListDisplayPanel.updateTodoListElementsDto(todoListDto.getTodoListElementDtos());
         this.add(todoListElementsListDisplayPanel, "grow, push");
+    }
+
+    public PopUpTitleBarPanel getPopUpTitleBarPanel() {
+        return popUpTitleBarPanel;
+    }
+
+    public void updateTodoListTitleLabelText(String updatedTodoName) {
+        todoListTitleLabel.setText(updatedTodoName);
+    }
+
+    public void updateTodoListElementsListDisplayPanel(TodoListDto updatedTodoListDto) {
+        todoListElementsListDisplayPanel.updateTodoListElementsDto(updatedTodoListDto.getTodoListElementDtos());
     }
 
 }

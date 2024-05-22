@@ -2,7 +2,6 @@ package com.coulon.todo.app.gui.panels.home;
 
 import com.coulon.todo.app.common.dto.TodoListDto;
 import com.coulon.todo.app.gui.AppPanels;
-import com.coulon.todo.app.gui.panels.tabs.todolist.TodoListMainPanel;
 import com.coulon.todo.app.utils.external.BackEndRequestProcessor;
 import com.coulon.todo.app.utils.ui.ButtonUtils;
 import com.coulon.todo.app.utils.ui.DisplayMode;
@@ -118,7 +117,8 @@ public class TodoListCardPanel extends JPanel {
 
     public void openTodoList(DisplayMode displayMode) {
         TodoListDto toUpdateTodoList = BackEndRequestProcessor.INSTANCE.getTodoListById(todoListDto.getId());
-        AppPanels.MAIN_PANEL.setDisplayedPanel(new TodoListMainPanel(toUpdateTodoList, displayMode));
+        AppPanels.TODO_LIST_MAIN_PANEL.updateTodoList(toUpdateTodoList, displayMode);
+        AppPanels.MAIN_PANEL.setDisplayedPanel(AppPanels.TODO_LIST_MAIN_PANEL);
     }
 
 }

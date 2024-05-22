@@ -12,7 +12,7 @@ public class TodoListPopUpManager {
 
     public static TodoListPopUpManager INSTANCE = new TodoListPopUpManager();
 
-    private final Map<Long, JFrame> popUpByTodoListId = new HashMap<>();
+    private final Map<Long, PopUpInfo> popUpInfoByTodoListId = new HashMap<>();
 
     private TodoListPopUpManager() {
     }
@@ -22,28 +22,40 @@ public class TodoListPopUpManager {
 
         JFrame todoPopUpFrame = new JFrame();
         todoPopUpFrame.setUndecorated(true);
-        todoPopUpFrame.setSize(280, 500);
-        todoPopUpFrame.setResizable(false);
         todoPopUpFrame.setIconImage(UiIcons.TODO_LOGO.getImage());
         todoPopUpFrame.setTitle("Todo List" + todoListDto.getName());
+        todoPopUpFrame.setSize(280, 500);
+        todoPopUpFrame.setResizable(false);
         todoPopUpFrame.setLocationRelativeTo(AppPanels.MAIN_FRAME);
         int popupLocationDelta = 50;
         todoPopUpFrame.setLocation(AppPanels.MAIN_FRAME.getX() + popupLocationDelta, AppPanels.MAIN_FRAME.getY() + popupLocationDelta);
-        todoPopUpFrame.setAlwaysOnTop(true);
         todoPopUpFrame.setOpacity(0.85f);
 
         PopUpTodoMainPanel popUpTodoMainPanel = new PopUpTodoMainPanel(todoListDto);
         todoPopUpFrame.setContentPane(popUpTodoMainPanel);
 
-        popUpByTodoListId.put(todoListDto.getId(), todoPopUpFrame);
+        PopUpInfo popUpInfo = new PopUpInfo(todoPopUpFrame, popUpTodoMainPanel, todoListDto);
+
+        popUpInfoByTodoListId.put(todoListDto.getId(), popUpInfo);
 
         todoPopUpFrame.setVisible(true);
     }
 
     public void closeTodoPopUp(Long todoListDtoId) {
-        JFrame popUp = popUpByTodoListId.remove(todoListDtoId);
-        if (popUp != null) {
-            popUp.dispose();
+        PopUpInfo popUpInfo = popUpInfoByTodoListId.remove(todoListDtoId);
+        if (popUpInfo != null) {
+            popUpInfo.getFrame().dispose();
+        }
+    }
+
+    public void updateTodoPopUp(TodoListDto todoListDto) {
+        PopUpInfo popUpInfo = popUpInfoByTodoListId.get(todoListDto.getId());
+        if (popUpInfo != null) {
+            PopUpTodoMainPanel popUpTodoMainPanel = popUpInfo.getPopUpTodoMainPanel();
+
+            popUpTodoMainPanel.getPopUpTitleBarPanel().updateTitleLabelText(todoListDto.getName());
+            popUpTodoMainPanel.updateTodoListTitleLabelText(todoListDto.getName());
+            popUpTodoMainPanel.updateTodoListElementsListDisplayPanel(todoListDto);
         }
     }
 

@@ -1,7 +1,6 @@
 package com.coulon.todo.app.back.web.todolist;
 
 import com.coulon.todo.app.back.db.model.TodoList;
-import com.coulon.todo.app.back.web.mappers.TodoListElementMapper;
 import com.coulon.todo.app.back.web.mappers.TodoListMapper;
 import com.coulon.todo.app.common.dto.CreateTodoListRequestDto;
 import com.coulon.todo.app.common.dto.TodoListDto;
@@ -15,13 +14,11 @@ import java.util.List;
 public class TodoListController {
 
     private final TodoListMapper todoListMapper;
-    private final TodoListElementMapper todoListElementMapper;
     private final TodoListService todoListService;
 
-    public TodoListController(TodoListService todoListService, TodoListMapper todoListMapper, TodoListElementMapper todoListElementMapper) {
+    public TodoListController(TodoListService todoListService, TodoListMapper todoListMapper) {
         this.todoListService = todoListService;
         this.todoListMapper = todoListMapper;
-        this.todoListElementMapper = todoListElementMapper;
     }
 
     @PostMapping
@@ -62,8 +59,8 @@ public class TodoListController {
     }
 
     @PostMapping("/element/update")
-    public TodoListElementDto updateTodoListElement(@RequestBody TodoListElementDto todoListElementDto) {
-        return todoListElementMapper.entityToDto(todoListService.updateTodoListElement(todoListElementDto));
+    public TodoListDto updateTodoListElement(@RequestBody TodoListElementDto todoListElementDto) {
+        return todoListMapper.entityToDto(todoListService.updateTodoListElement(todoListElementDto));
     }
 
 }

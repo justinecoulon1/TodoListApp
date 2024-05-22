@@ -6,6 +6,7 @@ import com.coulon.todo.app.common.dto.TodoListElementDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.IOException;
 import java.net.URI;
@@ -19,13 +20,12 @@ public class BackEndRequestProcessor {
 
     public static final BackEndRequestProcessor INSTANCE = new BackEndRequestProcessor();
 
-    private BackEndRequestProcessor() {
-    }
-
-    private final HttpClient client = HttpClient.newBuilder()
-            .build();
+    private final HttpClient client = HttpClient.newBuilder().build();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    private BackEndRequestProcessor() {
+        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+    }
 
     private HttpRequest buildGetRequest(String url) {
         try {
@@ -121,10 +121,10 @@ public class BackEndRequestProcessor {
         }
     }
 
-    public TodoListElementDto updateTodoListElement(TodoListElementDto todoListElementDto) {
+    public TodoListDto updateTodoListElement(TodoListElementDto todoListElementDto) {
         try {
             HttpResponse<byte[]> response = sendPostRequest("http://localhost:8080/todo_list/element/update", todoListElementDto);
-            return objectMapper.readValue(response.body(), TodoListElementDto.class);
+            return objectMapper.readValue(response.body(), TodoListDto.class);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

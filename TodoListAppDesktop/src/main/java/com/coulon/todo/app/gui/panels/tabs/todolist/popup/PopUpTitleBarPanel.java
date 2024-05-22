@@ -17,6 +17,7 @@ import java.awt.image.BufferedImage;
 public class PopUpTitleBarPanel extends JPanel {
 
     private final JButton pinButton;
+    private final JLabel titleLabel;
 
     public PopUpTitleBarPanel(TodoListDto todoListDto) {
         this.setLayout(new MigLayout("ins 0, gap 0, fill"));
@@ -29,7 +30,7 @@ public class PopUpTitleBarPanel extends JPanel {
         appLogoIconLabel.setIcon(appLogoImageIcon);
         this.add(appLogoIconLabel, "gapbefore 10, gapafter 15, aligny center");
 
-        JLabel titleLabel = new JLabel();
+        titleLabel = new JLabel();
         titleLabel.setText(todoListDto.getName());
         titleLabel.setFont(TodoListAppConstants.SMALL_TITLE_FONT);
         titleLabel.setBackground(this.getBackground());
@@ -75,4 +76,7 @@ public class PopUpTitleBarPanel extends JPanel {
         frame.setAlwaysOnTop(isPinned);
     }
 
+    public void updateTitleLabelText(String updatedTitleLabelText) {
+        titleLabel.setText(updatedTitleLabelText);
+    }
 }

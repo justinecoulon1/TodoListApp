@@ -95,11 +95,11 @@ public class TodoListService {
         return deletedTodoListElement;
     }
 
-    public TodoListElement updateTodoListElement(TodoListElementDto todoListElementDto) {
+    public TodoList updateTodoListElement(TodoListElementDto todoListElementDto) {
         TodoListElement todoListElement = todoListElementById.get(todoListElementDto.getId());
         todoListElement.setDescription(todoListElementDto.getDescription());
         todoListElement.setTodoListElementStatus(todoListElementDto.getTodoListElementStatus());
-        return todoListElement;
+        return todoListElement.getTodoList();
     }
 
 
