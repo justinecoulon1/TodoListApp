@@ -26,7 +26,8 @@ public enum UiIcons {
     MENU("/icons/menu.png"),
     SETTINGS("/icons/settings.png"),
     STATISTICS("/icons/statistics.png"),
-    DELETE("/icons/close.png");
+    DELETE("/icons/close.png"),
+    DUPLICATE("/icons/duplicate.png");
 
     private BufferedImage image;
 

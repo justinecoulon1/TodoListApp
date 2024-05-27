@@ -14,6 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 public class TodoListCreateButtonContainerPanel extends JPanel {
@@ -41,14 +42,15 @@ public class TodoListCreateButtonContainerPanel extends JPanel {
         addTextLabel.setForeground(TodoListAppConstants.LIGHT_FONT_COLOR);
         createTodoListButtonPanel.add(addTextLabel, "gapbefore 30, aligny center");
 
-        createTodoListButtonPanel.addMouseListener(new MouseAdapter() {
+        MouseListener createTodoListMouseAdapter = new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 TodoListDto todoListDto = BackEndRequestProcessor.INSTANCE.createTodoList("", "Justine");
                 TodoListCardPanel todoListCardPanel = AppPanels.HOME_MAIN_PANEL.getListDisplayPanel().addTodoListCardPanel(todoListDto);
                 todoListCardPanel.openTodoList(DisplayMode.UPDATE);
             }
-        });
+        };
+        createTodoListButtonPanel.addMouseListener(createTodoListMouseAdapter);
         createTodoListButtonPanel.addMouseListener(new ButtonDefaultMouseAdapter(createTodoListButtonPanel, TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR, TodoListAppConstants.DARK_HIGHLIGHT_COLOR));
 
         this.add(createTodoListButtonPanel, "w 350, h 60!, aligny top, alignx center");

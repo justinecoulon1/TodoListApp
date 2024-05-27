@@ -18,7 +18,7 @@ public class TodoListElementsListDisplayPanel extends JPanel {
         this.setLayout(new MigLayout("fill, nogrid, ins 0"));
         this.setBackground(TodoListAppConstants.GENERAL_BACKGROUND_COLOR);
 
-        todoListElementsListContainerPanel = new JPanel(new MigLayout("fillx, ins 0"));
+        todoListElementsListContainerPanel = new JPanel(new MigLayout("fillx, ins 0, gap 0"));
         todoListElementsListContainerPanel.setBackground(getBackground());
         JScrollPane scrollPane = new JScrollPane(todoListElementsListContainerPanel);
         scrollPane.setHorizontalScrollBar(null);
@@ -37,7 +37,7 @@ public class TodoListElementsListDisplayPanel extends JPanel {
     public void addTodoListElementCardPanel(TodoListElementDto todoListElementDto, DisplayMode displayMode) {
         TodoListElementCardPanel todoListElementCardPanel = new TodoListElementCardPanel(todoListElementDto, displayMode, this);
         todoListElementCardPanels.add(todoListElementCardPanel);
-        todoListElementsListContainerPanel.add(todoListElementCardPanel, "h 50, wrap, growx");
+        todoListElementsListContainerPanel.add(todoListElementCardPanel, "h 50, wrap, gaptop 3, growx");
         if (super.getRootPane() != null) {
             super.getRootPane().updateUI();
         }

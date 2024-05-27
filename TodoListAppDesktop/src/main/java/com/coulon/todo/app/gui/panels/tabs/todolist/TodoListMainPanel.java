@@ -16,13 +16,13 @@ public class TodoListMainPanel extends JPanel {
     private DisplayMode displayMode;
 
     public TodoListMainPanel() {
-        this.setLayout(new MigLayout("fill, nogrid, ins 0, hidemode 2"));
+        this.setLayout(new MigLayout("fill, nogrid, ins 0, gap 0, hidemode 2"));
         this.setBackground(TodoListAppConstants.GENERAL_BACKGROUND_COLOR);
 
         todoListNamePanel = new TodoListNamePanel();
         todoListElementsListDisplayPanel = new TodoListElementsListDisplayPanel();
 
-        this.add(todoListNamePanel, "growx, aligny top, h 70!, wrap");
+        this.add(todoListNamePanel, "growx, aligny top, h 70!, gapbottom 3, wrap");
         this.add(addTodoElementButtonContainerPanel, "growx, aligny top, wrap");
         this.add(todoListElementsListDisplayPanel, "grow, push");
     }

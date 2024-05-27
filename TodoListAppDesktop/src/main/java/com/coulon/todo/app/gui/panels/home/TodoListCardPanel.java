@@ -93,6 +93,12 @@ public class TodoListCardPanel extends JPanel {
         buttonPanel.setVisible(false);
         buttonPanel.setBackground(TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR);
 
+        JButton duplicateTodoListButton = ButtonUtils.createSmallButtonWithoutBorder(UiIcons.DUPLICATE);
+        duplicateTodoListButton.addActionListener(this::handleDuplicateButton);
+        duplicateTodoListButton.addMouseListener(buttonPanelVisibilityMouseAdapter);
+        duplicateTodoListButton.setToolTipText("Delete todo list");
+        buttonPanel.add(duplicateTodoListButton, "aligny top, alignx right, w 25!, h 20!");
+
         JButton deleteTodoListButton = ButtonUtils.createSmallButtonWithoutBorder(UiIcons.DELETE);
         deleteTodoListButton.addActionListener(this::handleDeleteButton);
         deleteTodoListButton.addMouseListener(buttonPanelVisibilityMouseAdapter);
@@ -104,6 +110,13 @@ public class TodoListCardPanel extends JPanel {
         this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         this.addMouseListener(buttonPanelVisibilityMouseAdapter);
         this.addMouseListener(clickMouseAdapter);
+    }
+
+    private void handleDuplicateButton(ActionEvent actionEvent) {
+        TodoListDto duplicatedTodoList = BackEndRequestProcessor.INSTANCE.createTodoList(todoListDto.getName(), "Justine");
+        duplicatedTodoList.setTodoListElementDtos(todoListDto.getTodoListElementDtos());
+        BackEndRequestProcessor.INSTANCE.updateTodoList(duplicatedTodoList);
+        AppPanels.HOME_MAIN_PANEL.getListDisplayPanel().addTodoListCardPanel(duplicatedTodoList);
     }
 
     private void handleDeleteButton(ActionEvent actionEvent) {

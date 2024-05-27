@@ -17,7 +17,7 @@ public class PopUpTodoMainPanel extends JPanel {
     private final TodoListElementsListDisplayPanel todoListElementsListDisplayPanel;
 
     public PopUpTodoMainPanel(TodoListDto todoListDto) {
-        this.setLayout(new MigLayout("fill, nogrid, ins 0, hidemode 2"));
+        this.setLayout(new MigLayout("fill, nogrid, ins 0, gap 0, hidemode 2"));
         this.setBackground(TodoListAppConstants.GENERAL_BACKGROUND_COLOR);
 
         popUpTitleBarPanel = new PopUpTitleBarPanel(todoListDto);
@@ -32,8 +32,9 @@ public class PopUpTodoMainPanel extends JPanel {
         BufferedImage todoImage = ImageUtils.resizeImage(UiIcons.NORMAL_TODO.getImage(), 32, 32);
         ImageIcon imageIcon = new ImageIcon(todoImage);
         todoImageLabel.setIcon(imageIcon);
+        todoImageLabel.setHorizontalAlignment(SwingConstants.CENTER);
         todoImageLabel.setBorder(BorderFactory.createLineBorder(TodoListAppConstants.BORDERS_AND_SEPARATOR_COLOR, 3));
-        todoListNamePanel.add(todoImageLabel, "aligny center, alignx left, gapbefore 10");
+        todoListNamePanel.add(todoImageLabel, "h 70!, w 50!, alignx left");
 
         todoListTitleLabel = new JLabel();
         todoListTitleLabel.setText(todoListDto.getName());
@@ -44,7 +45,7 @@ public class PopUpTodoMainPanel extends JPanel {
         todoListTitleLabel.setOpaque(true);
         todoListNamePanel.add(todoListTitleLabel, "aligny center, alignx left, gapbefore 10, gapafter 10, growx, h 40!");
 
-        this.add(todoListNamePanel, "growx, aligny top, h 70!, wrap");
+        this.add(todoListNamePanel, "growx, aligny top, h 70!, gapbottom 3, wrap");
 
         todoListElementsListDisplayPanel = new TodoListElementsListDisplayPanel();
         todoListElementsListDisplayPanel.updateTodoListElementsDto(todoListDto.getTodoListElementDtos());
