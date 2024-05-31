@@ -91,10 +91,10 @@ public class BackEndRequestProcessor {
         }
     }
 
-    public TodoListDto createTodoList(String todoListName, String userName) {
+    public TodoListDto createTodoList(String todoListName) {
         CreateTodoListRequestDto body = new CreateTodoListRequestDto();
         body.setTodoListName(todoListName);
-        body.setUserName(userName);
+        body.setUserName("JustineTest");
         try {
             HttpResponse<byte[]> response = sendPostRequest("http://localhost:8080/todo_list", body);
             return objectMapper.readValue(response.body(), TodoListDto.class);
@@ -103,10 +103,9 @@ public class BackEndRequestProcessor {
         }
     }
 
-    public TodoListDto deleteTodoList(Long id) {
+    public void deleteTodoList(Long id) {
         try {
-            HttpResponse<byte[]> response = sendPostRequest("http://localhost:8080/todo_list/" + id + "/delete", new Object());
-            return objectMapper.readValue(response.body(), TodoListDto.class);
+            sendPostRequest("http://localhost:8080/todo_list/" + id + "/delete", new Object());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

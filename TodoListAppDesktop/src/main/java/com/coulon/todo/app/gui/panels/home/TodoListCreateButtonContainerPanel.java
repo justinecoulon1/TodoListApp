@@ -45,7 +45,7 @@ public class TodoListCreateButtonContainerPanel extends JPanel {
         MouseListener createTodoListMouseAdapter = new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                TodoListDto todoListDto = BackEndRequestProcessor.INSTANCE.createTodoList("", "Justine");
+                TodoListDto todoListDto = BackEndRequestProcessor.INSTANCE.createTodoList("");
                 TodoListCardPanel todoListCardPanel = AppPanels.HOME_MAIN_PANEL.getListDisplayPanel().addTodoListCardPanel(todoListDto);
                 todoListCardPanel.openTodoList(DisplayMode.UPDATE);
             }

@@ -1,4 +1,7 @@
 package com.coulon.todo.app.back.db.repository;
 
-public class TodoListElementRepository {
+import com.coulon.todo.app.back.db.model.TodoListElement;
+import org.springframework.data.repository.ListCrudRepository;
+
+public interface TodoListElementRepository extends ListCrudRepository<TodoListElement, Long> {
 }

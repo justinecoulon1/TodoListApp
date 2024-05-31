@@ -1,12 +1,20 @@
 package com.coulon.todo.app.back.db.model;
 
 import com.coulon.todo.app.common.dto.TodoListElementStatus;
+import jakarta.persistence.*;
 
+@Entity(name = "todolistelement")
 public class TodoListElement {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Long id;
     private String description;
-    private TodoListElementStatus todoListElementStatus;
+    @Enumerated(value = EnumType.STRING)
+    private TodoListElementStatus status;
+    @ManyToOne
+    @JoinColumn(name = "todolistid", referencedColumnName = "id")
     private TodoList todoList;
 
     public TodoListElement() {
@@ -36,12 +44,12 @@ public class TodoListElement {
         this.description = description;
     }
 
-    public TodoListElementStatus getTodoListElementStatus() {
-        return todoListElementStatus;
+    public TodoListElementStatus getStatus() {
+        return status;
     }
 
-    public void setTodoListElementStatus(TodoListElementStatus todoListElementStatus) {
-        this.todoListElementStatus = todoListElementStatus;
+    public void setStatus(TodoListElementStatus status) {
+        this.status = status;
     }
 
 }

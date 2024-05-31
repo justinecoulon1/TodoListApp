@@ -1,4 +1,10 @@
 package com.coulon.todo.app.back.db.repository;
 
-public class UserRepository {
+import com.coulon.todo.app.back.db.model.User;
+import org.springframework.data.repository.ListCrudRepository;
+
+public interface UserRepository extends ListCrudRepository<User, Long> {
+
+    User findByName(String userName);
+
 }

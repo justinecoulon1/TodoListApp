@@ -1,14 +1,14 @@
 package com.coulon.todo.app.back.db.model;
 
+import jakarta.persistence.*;
+
+@Entity(name = "todolistuser")
 public class User {
 
-    private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    public User(String name, Long id) {
-        this.name = name;
-        this.id = id;
-    }
+    private String name;
 
     public String getName() {
         return name;
@@ -25,4 +25,5 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
+
 }

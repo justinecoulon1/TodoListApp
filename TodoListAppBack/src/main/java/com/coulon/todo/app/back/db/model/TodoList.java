@@ -1,19 +1,26 @@
 package com.coulon.todo.app.back.db.model;
 
+import jakarta.persistence.*;
+
 import java.util.List;
 
+@Entity(name = "todolist")
 public class TodoList {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne
+    @JoinColumn(name = "userid", referencedColumnName = "id")
     private User user;
     private String name;
+    @OneToMany(mappedBy = "todoList", cascade = CascadeType.ALL)
     private List<TodoListElement> todoListElements;
 
     public TodoList() {
     }
 
-    public TodoList(Long id, User user, String name, List<TodoListElement> todoListElements) {
-        this.id = id;
+    public TodoList(User user, String name, List<TodoListElement> todoListElements) {
         this.user = user;
         this.name = name;
         this.todoListElements = todoListElements;
@@ -50,4 +57,5 @@ public class TodoList {
     public void setUser(User user) {
         this.user = user;
     }
+
 }

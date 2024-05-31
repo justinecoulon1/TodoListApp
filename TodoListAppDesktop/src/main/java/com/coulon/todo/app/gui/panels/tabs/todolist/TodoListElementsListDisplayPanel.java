@@ -58,7 +58,7 @@ public class TodoListElementsListDisplayPanel extends JPanel {
         for (TodoListElementCardPanel todoListElementCardPanel : todoListElementCardPanels) {
             TodoListElementDto toUpdateTodoListElementDto = todoListElementCardPanel.getTodoListElementDto();
             toUpdateTodoListElementDto.setDescription(todoListElementCardPanel.getTodoListElementDescriptionTextField().getText());
-            toUpdateTodoListElementDto.setTodoListElementStatus(todoListElementCardPanel.getTodoListElementStatusSelectorLabel().getSelectedStatus().getTodoListElementStatus());
+            toUpdateTodoListElementDto.setStatus(todoListElementCardPanel.getTodoListElementStatusSelectorLabel().getSelectedStatus().getTodoListElementStatus());
             todoListElementDtos.add(todoListElementCardPanel.getTodoListElementDto());
         }
         return todoListElementDtos;

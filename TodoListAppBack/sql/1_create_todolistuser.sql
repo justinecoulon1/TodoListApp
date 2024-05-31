@@ -1,0 +1,6 @@
+CREATE TABLE TodoListUser (
+
+    ID SERIAL PRIMARY KEY,
+    Name VARCHAR(255) NOT NULL
+
+);

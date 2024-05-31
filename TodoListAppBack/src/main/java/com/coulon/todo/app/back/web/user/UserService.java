@@ -1,32 +1,34 @@
 package com.coulon.todo.app.back.web.user;
 
 import com.coulon.todo.app.back.db.model.User;
+import com.coulon.todo.app.back.db.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class UserService {
 
-    private final Map<Long, User> userById = new HashMap<>();
-    private final AtomicLong idGenerator = new AtomicLong(1);
+    private final UserRepository userRepository;
 
-    public User getUserByName(String name) {
-        return userById.values().stream()
-                .filter(user -> user.getName().equals(name))
-                .findFirst().orElse(null);
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    public User getOrCreateUser(String name) {
-        return userById.values().stream()
-                .filter(user -> user.getName().equals(name))
-                .findFirst().orElseGet(() -> createUser(name));
+    public User getUserByName(String name) {
+        return userRepository.findByName(name);
     }
 
     public User createUser(String name) {
-        return new User(name, idGenerator.getAndIncrement());
+        User user = new User();
+        user.setName(name);
+        return userRepository.save(user);
+    }
+
+    public User getOrCreateUser(String name) {
+        User user = getUserByName(name);
+        if (user != null) {
+            return user;
+        }
+        return createUser(name);
     }
 
 }

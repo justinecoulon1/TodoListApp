@@ -52,7 +52,7 @@ public class TodoListElementCardPanel extends JPanel implements TodoListElementS
         };
         this.addMouseListener(highlightMouseAdapter);
 
-        TodoListElementStatus status = todoListElementDto.getTodoListElementStatus();
+        TodoListElementStatus status = todoListElementDto.getStatus();
         if (status == null) {
             status = TodoListElementStatus.TODO;
         }
@@ -127,7 +127,7 @@ public class TodoListElementCardPanel extends JPanel implements TodoListElementS
     public void onStatusSelected(TodoListElementStatus selectedStatus) {
         todoListElementStatusSelectorLabel.setSelectedStatus(selectedStatus);
         if (displayMode == DisplayMode.READ) {
-            todoListElementDto.setTodoListElementStatus(selectedStatus);
+            todoListElementDto.setStatus(selectedStatus);
             TodoListDto updatedTodoListDto = BackEndRequestProcessor.INSTANCE.updateTodoListElement(todoListElementDto);
             TodoListPopUpManager.INSTANCE.updateTodoPopUp(updatedTodoListDto);
             TodoListDto currentlyDisplayedTodoList = AppPanels.TODO_LIST_MAIN_PANEL.getTodoListDto();

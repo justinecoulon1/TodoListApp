@@ -113,7 +113,7 @@ public class TodoListCardPanel extends JPanel {
     }
 
     private void handleDuplicateButton(ActionEvent actionEvent) {
-        TodoListDto duplicatedTodoList = BackEndRequestProcessor.INSTANCE.createTodoList(todoListDto.getName(), "Justine");
+        TodoListDto duplicatedTodoList = BackEndRequestProcessor.INSTANCE.createTodoList(todoListDto.getName());
         duplicatedTodoList.setTodoListElementDtos(todoListDto.getTodoListElementDtos());
         BackEndRequestProcessor.INSTANCE.updateTodoList(duplicatedTodoList);
         AppPanels.HOME_MAIN_PANEL.getListDisplayPanel().addTodoListCardPanel(duplicatedTodoList);
