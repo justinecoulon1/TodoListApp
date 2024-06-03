@@ -15,6 +15,7 @@ public class TodoList {
     private User user;
     private String name;
     @OneToMany(mappedBy = "todoList", cascade = CascadeType.ALL)
+    @OrderBy("id")
     private List<TodoListElement> todoListElements;
 
     public TodoList() {

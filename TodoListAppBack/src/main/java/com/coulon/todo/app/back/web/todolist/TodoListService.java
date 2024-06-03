@@ -56,7 +56,7 @@ public class TodoListService {
     }
 
     public List<TodoList> getAllTodoList() {
-        return todoListRepository.findAll();
+        return todoListRepository.findAllByOrderByIdAsc();
     }
 
     public TodoList getTodoListById(Long id) {
