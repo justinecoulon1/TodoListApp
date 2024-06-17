@@ -4,10 +4,8 @@ import com.coulon.todo.app.common.dto.TodoListDto;
 import com.coulon.todo.app.gui.AppPanels;
 import com.coulon.todo.app.gui.panels.tabs.todolist.popup.TodoListPopUpManager;
 import com.coulon.todo.app.utils.external.BackEndRequestProcessor;
-import com.coulon.todo.app.utils.ui.ButtonDefaultMouseAdapter;
-import com.coulon.todo.app.utils.ui.ButtonUtils;
+import com.coulon.todo.app.utils.ui.*;
 import com.coulon.todo.app.utils.ui.DisplayMode;
-import com.coulon.todo.app.utils.ui.TodoListAppConstants;
 import com.coulon.todo.app.utils.ui.images.ImageUtils;
 import com.coulon.todo.app.utils.ui.images.UiIcons;
 import net.miginfocom.swing.MigLayout;
@@ -22,10 +20,10 @@ import java.awt.image.BufferedImage;
 public class TodoListNamePanel extends JPanel {
 
     private final JTextField todoListNameTextField;
-    private final JButton cancelUpdateButton;
-    private final JButton validateUpdateTodoListButton;
-    private final JButton startUpdateTodoListButton;
-    private final JButton openTodoListButton;
+    private JButton cancelUpdateButton;
+    private JButton validateUpdateTodoListButton;
+    private JButton startUpdateTodoListButton;
+    private JButton openTodoListButton;
     private TodoListDto todoListDto;
 
     public TodoListNamePanel() {
@@ -46,44 +44,16 @@ public class TodoListNamePanel extends JPanel {
         homeButtonLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                AppPanels.MAIN_PANEL.setDisplayedPanel(AppPanels.HOME_MAIN_PANEL);
-                AppPanels.HOME_MAIN_PANEL.refresh();
+                AppPanels.MAIN_PANEL.setDisplayedPanel(AppPanels.TODO_LISTS_HOME_PANEL);
+                AppPanels.TODO_LISTS_HOME_PANEL.refresh();
             }
         });
         this.add(homeButtonLabel, "h 70!, w 50!, alignx left");
 
-        todoListNameTextField = new JTextField();
-        todoListNameTextField.setBackground(getBackground());
-        todoListNameTextField.setFont(TodoListAppConstants.DEFAULT_FONT);
-        todoListNameTextField.setForeground(TodoListAppConstants.DARK_FONT_COLOR);
-        todoListNameTextField.setCaretColor(TodoListAppConstants.DARK_FONT_COLOR);
-        todoListNameTextField.setHorizontalAlignment(JTextField.LEFT);
-        todoListNameTextField.setOpaque(true);
+        todoListNameTextField = TextFieldUtils.createTextFieldWithBorder(getBackground());
         this.add(todoListNameTextField, "aligny center, alignx left, gapbefore 10, gapafter 10, growx, h 40!");
 
-        JPanel buttonPanel = new JPanel(new MigLayout("ins 2, gap 2, hidemode 2"));
-        buttonPanel.setBackground(getBackground());
-
-        validateUpdateTodoListButton = ButtonUtils.createSmallButtonWithBorder(UiIcons.VALIDATE);
-        validateUpdateTodoListButton.addActionListener(this::handleValidateUpdateButton);
-        validateUpdateTodoListButton.setToolTipText("Save");
-        buttonPanel.add(validateUpdateTodoListButton, "aligny top, alignx right, w 28!, h 30!, wrap");
-
-        startUpdateTodoListButton = ButtonUtils.createSmallButtonWithBorder(UiIcons.EDIT);
-        startUpdateTodoListButton.addActionListener(this::handleStartUpdateButton);
-        startUpdateTodoListButton.setToolTipText("Edit");
-        buttonPanel.add(startUpdateTodoListButton, "aligny top, alignx right, w 28!, h 30!, wrap");
-
-        openTodoListButton = ButtonUtils.createSmallButtonWithBorder(UiIcons.OPEN);
-        openTodoListButton.addActionListener(this::openTodoList);
-        openTodoListButton.setToolTipText("Open todo list");
-        buttonPanel.add(openTodoListButton, "aligny bottom, alignx right, w 28!, h 30!, wrap");
-
-        cancelUpdateButton = ButtonUtils.createSmallButtonWithBorder(UiIcons.DELETE);
-        cancelUpdateButton.addActionListener(this::handleCancelUpdateButton);
-        cancelUpdateButton.setToolTipText("Cancel edit");
-        buttonPanel.add(cancelUpdateButton, "aligny bottom, alignx right, w 28!, h 30!");
-
+        JPanel buttonPanel = createButtonPanel();
         this.add(buttonPanel, "aligny top, alignx right");
     }
 
@@ -134,6 +104,32 @@ public class TodoListNamePanel extends JPanel {
         if (super.getRootPane() != null) {
             super.getRootPane().updateUI();
         }
+    }
+
+    private JPanel createButtonPanel() {
+        JPanel buttonPanel = new JPanel(new MigLayout("ins 2, gap 2, hidemode 2"));
+        buttonPanel.setBackground(getBackground());
+        validateUpdateTodoListButton = ButtonUtils.createSmallButtonWithBorder(UiIcons.VALIDATE);
+        validateUpdateTodoListButton.addActionListener(this::handleValidateUpdateButton);
+        validateUpdateTodoListButton.setToolTipText("Save");
+        buttonPanel.add(validateUpdateTodoListButton, "aligny top, alignx right, w 28!, h 30!, wrap");
+
+        startUpdateTodoListButton = ButtonUtils.createSmallButtonWithBorder(UiIcons.EDIT);
+        startUpdateTodoListButton.addActionListener(this::handleStartUpdateButton);
+        startUpdateTodoListButton.setToolTipText("Edit");
+        buttonPanel.add(startUpdateTodoListButton, "aligny top, alignx right, w 28!, h 30!, wrap");
+
+        openTodoListButton = ButtonUtils.createSmallButtonWithBorder(UiIcons.OPEN);
+        openTodoListButton.addActionListener(this::openTodoList);
+        openTodoListButton.setToolTipText("Open todo list");
+        buttonPanel.add(openTodoListButton, "aligny bottom, alignx right, w 28!, h 30!, wrap");
+
+        cancelUpdateButton = ButtonUtils.createSmallButtonWithBorder(UiIcons.DELETE);
+        cancelUpdateButton.addActionListener(this::handleCancelUpdateButton);
+        cancelUpdateButton.setToolTipText("Cancel edit");
+        buttonPanel.add(cancelUpdateButton, "aligny bottom, alignx right, w 28!, h 30!");
+
+        return buttonPanel;
     }
 
 }

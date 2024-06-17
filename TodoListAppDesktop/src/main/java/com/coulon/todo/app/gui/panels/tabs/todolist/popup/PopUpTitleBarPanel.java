@@ -4,15 +4,14 @@ import com.coulon.todo.app.common.dto.TodoListDto;
 import com.coulon.todo.app.gui.titlebar.WindowDragListener;
 import com.coulon.todo.app.utils.ui.ButtonToggleMouseAdapter;
 import com.coulon.todo.app.utils.ui.ButtonUtils;
+import com.coulon.todo.app.utils.ui.LabelUtils;
 import com.coulon.todo.app.utils.ui.TodoListAppConstants;
-import com.coulon.todo.app.utils.ui.images.ImageUtils;
 import com.coulon.todo.app.utils.ui.images.UiIcons;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 
 public class PopUpTitleBarPanel extends JPanel {
 
@@ -23,18 +22,11 @@ public class PopUpTitleBarPanel extends JPanel {
         this.setLayout(new MigLayout("ins 0, gap 0, fill"));
         this.setBackground(TodoListAppConstants.HEADER_BACKGROUND_COLOR);
 
-        JLabel appLogoIconLabel = new JLabel();
+        JLabel appLogoIconLabel = LabelUtils.createImageLabel(UiIcons.TODO_LOGO.getImage(), 24);
         appLogoIconLabel.setBackground(this.getBackground());
-        BufferedImage appLogoImage = ImageUtils.resizeImage(UiIcons.TODO_LOGO.getImage(), 24, 24);
-        ImageIcon appLogoImageIcon = new ImageIcon(appLogoImage);
-        appLogoIconLabel.setIcon(appLogoImageIcon);
         this.add(appLogoIconLabel, "gapbefore 10, gapafter 15, aligny center");
 
-        titleLabel = new JLabel();
-        titleLabel.setText(todoListDto.getName());
-        titleLabel.setFont(TodoListAppConstants.SMALL_TITLE_FONT);
-        titleLabel.setBackground(this.getBackground());
-        titleLabel.setForeground(TodoListAppConstants.LIGHT_FONT_COLOR);
+        titleLabel = LabelUtils.createTextLabel(todoListDto.getName(), TodoListAppConstants.SMALL_TITLE_FONT, getBackground(), TodoListAppConstants.LIGHT_FONT_COLOR);
         this.add(titleLabel, " aligny center, gapbefore 10, pushx");
 
         JPanel buttonPanel = new JPanel(new MigLayout("ins 0, gap 0"));

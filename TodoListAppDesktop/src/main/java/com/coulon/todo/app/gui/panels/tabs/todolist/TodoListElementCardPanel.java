@@ -10,6 +10,7 @@ import com.coulon.todo.app.gui.panels.tabs.todolist.status.TodoListElementStatus
 import com.coulon.todo.app.utils.external.BackEndRequestProcessor;
 import com.coulon.todo.app.utils.ui.ButtonUtils;
 import com.coulon.todo.app.utils.ui.DisplayMode;
+import com.coulon.todo.app.utils.ui.TextFieldUtils;
 import com.coulon.todo.app.utils.ui.TodoListAppConstants;
 import com.coulon.todo.app.utils.ui.images.UiIcons;
 import net.miginfocom.swing.MigLayout;
@@ -24,7 +25,7 @@ public class TodoListElementCardPanel extends JPanel implements TodoListElementS
 
     private final TodoListElementDto todoListElementDto;
     private final JTextField todoListElementDescriptionTextField;
-    private final JButton deleteTodoElementListButton;
+    private JButton deleteTodoElementListButton;
     private final TodoListElementsListDisplayPanel todoListElementsListDisplayPanel;
     private final TodoListElementStatusSelectorLabel todoListElementStatusSelectorLabel;
     private DisplayMode displayMode;
@@ -65,25 +66,11 @@ public class TodoListElementCardPanel extends JPanel implements TodoListElementS
         todoListElementStatusSelectorLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         this.add(todoListElementStatusSelectorLabel, "aligny center, alignx left, gapbefore 10");
 
-        todoListElementDescriptionTextField = new JTextField();
-        todoListElementDescriptionTextField.setText(todoListElementDto.getDescription());
-        todoListElementDescriptionTextField.setBackground(getBackground());
-        todoListElementDescriptionTextField.setFont(TodoListAppConstants.DEFAULT_FONT);
-        todoListElementDescriptionTextField.setForeground(TodoListAppConstants.DARK_FONT_COLOR);
-        todoListElementDescriptionTextField.setCaretColor(TodoListAppConstants.DARK_FONT_COLOR);
-        todoListElementDescriptionTextField.setHorizontalAlignment(JTextField.LEFT);
-        todoListElementDescriptionTextField.setOpaque(true);
+        todoListElementDescriptionTextField = TextFieldUtils.createTextFieldWithBorderAndText(getBackground(), todoListElementDto.getDescription());
         todoListElementDescriptionTextField.addMouseListener(highlightMouseAdapter);
         this.add(todoListElementDescriptionTextField, "aligny center, alignx left, gapbefore 10, growx, h 40!");
 
-        JPanel buttonPanel = new JPanel(new MigLayout("ins 0, gap 0, hidemode 2"));
-        buttonPanel.setBackground(TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR);
-
-        deleteTodoElementListButton = ButtonUtils.createSmallButtonWithoutBorder(UiIcons.DELETE);
-        deleteTodoElementListButton.addActionListener(this::handleDeleteButton);
-        deleteTodoElementListButton.setToolTipText("Delete task");
-        buttonPanel.add(deleteTodoElementListButton, "aligny top, alignx right, w 25!, h 20!");
-
+        JPanel buttonPanel = createButtonPanel();
         this.add(buttonPanel, "aligny top, alignx right");
 
         updateDisplayMode(displayMode);
@@ -136,6 +123,17 @@ public class TodoListElementCardPanel extends JPanel implements TodoListElementS
                 AppPanels.TODO_LIST_MAIN_PANEL.updateTodoList(updatedTodoListDto, DisplayMode.READ);
             }
         }
+    }
+
+    public JPanel createButtonPanel() {
+        JPanel buttonPanel = new JPanel(new MigLayout("ins 0, gap 0, hidemode 2"));
+        buttonPanel.setBackground(TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR);
+
+        deleteTodoElementListButton = ButtonUtils.createSmallButtonWithoutBorder(UiIcons.DELETE);
+        deleteTodoElementListButton.addActionListener(this::handleDeleteButton);
+        deleteTodoElementListButton.setToolTipText("Delete task");
+        buttonPanel.add(deleteTodoElementListButton, "aligny top, alignx right, w 25!, h 20!");
+        return buttonPanel;
     }
 
 }

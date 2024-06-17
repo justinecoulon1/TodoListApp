@@ -3,14 +3,12 @@ package com.coulon.todo.app.common.dto;
 public class CreateTodoListRequestDto {
 
     private String todoListName;
-    private String userName;
 
     public CreateTodoListRequestDto() {
     }
 
-    public CreateTodoListRequestDto(String todoListName, String userName) {
+    public CreateTodoListRequestDto(String todoListName) {
         this.todoListName = todoListName;
-        this.userName = userName;
     }
 
     public String getTodoListName() {
@@ -19,14 +17,6 @@ public class CreateTodoListRequestDto {
 
     public void setTodoListName(String todoListName) {
         this.todoListName = todoListName;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
 }

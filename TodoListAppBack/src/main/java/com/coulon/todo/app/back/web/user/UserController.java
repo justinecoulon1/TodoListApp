@@ -1,7 +1,11 @@
 package com.coulon.todo.app.back.web.user;
 
-import com.coulon.todo.app.back.db.model.User;
-import org.springframework.web.bind.annotation.*;
+import com.coulon.todo.app.common.dto.LogInRequestDto;
+import com.coulon.todo.app.common.dto.SessionDto;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user")
@@ -13,14 +17,10 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
-    public User getUserByName(@RequestParam String name) {
-       return userService.getUserByName(name);
-    }
-
-    @PostMapping
-    public User getOrCreateUser(@RequestParam String name) {
-        return userService.getOrCreateUser(name);
+    @PostMapping("/login")
+    public SessionDto logInUser(@RequestBody LogInRequestDto logInRequestDto) {
+        String token = userService.logInUser(logInRequestDto.getEmail(), logInRequestDto.getPassword());
+        return new SessionDto(token);
     }
 
 }

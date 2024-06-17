@@ -2,6 +2,7 @@ package com.coulon.todo.app.gui.titlebar;
 
 import com.coulon.todo.app.gui.AppPanels;
 import com.coulon.todo.app.utils.ui.ButtonDefaultMouseAdapter;
+import com.coulon.todo.app.utils.ui.LabelUtils;
 import com.coulon.todo.app.utils.ui.TodoListAppConstants;
 import com.coulon.todo.app.utils.ui.ButtonUtils;
 import com.coulon.todo.app.utils.ui.images.ImageUtils;
@@ -34,8 +35,8 @@ public class TitleBarPanel extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (AppPanels.MAIN_PANEL.getCurrentDisplayedPanel() == AppPanels.MAIN_MENU_PANEL) {
-                    AppPanels.MAIN_PANEL.setDisplayedPanel(AppPanels.HOME_MAIN_PANEL);
-                } else {
+                    AppPanels.MAIN_PANEL.setDisplayedPanel(AppPanels.TODO_LISTS_HOME_PANEL);
+                } else if (AppPanels.MAIN_PANEL.getCurrentDisplayedPanel() != AppPanels.LOG_IN_DISPLAY_PANEL) {
                     AppPanels.MAIN_PANEL.setDisplayedPanel(AppPanels.MAIN_MENU_PANEL);
                 }
             }
@@ -50,13 +51,18 @@ public class TitleBarPanel extends JPanel {
         appLogoIconLabel.setIcon(appLogoImageIcon);
         this.add(appLogoIconLabel, "gapbefore 10, gapafter 15, aligny center");
 
-        JLabel titleLabel = new JLabel();
-        titleLabel.setText("To-do List");
-        titleLabel.setFont(TodoListAppConstants.TITLE_FONT);
-        titleLabel.setBackground(this.getBackground());
-        titleLabel.setForeground(TodoListAppConstants.LIGHT_FONT_COLOR);
+        JLabel titleLabel = LabelUtils.createTextLabel("To-do List", TodoListAppConstants.TITLE_FONT, getBackground(), TodoListAppConstants.LIGHT_FONT_COLOR);
         this.add(titleLabel, " aligny center, gapbefore 10, pushx");
 
+        JPanel buttonPanel = createButtonPanel();
+        this.add(buttonPanel, "aligny top, alignx right");
+
+        WindowDragListener dragListener = new WindowDragListener(this);
+        this.addMouseListener(dragListener);
+        this.addMouseMotionListener(dragListener);
+    }
+
+    private static JPanel createButtonPanel() {
         JPanel buttonPanel = new JPanel(new MigLayout("ins 0, gap 0"));
         buttonPanel.setBackground(TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR);
         JButton minimizeButton = ButtonUtils.createBigButtonWithoutBorder(UiIcons.MINIMIZE);
@@ -68,11 +74,7 @@ public class TitleBarPanel extends JPanel {
         buttonPanel.add(closeButton, "growy, alignx right");
         closeButton.addActionListener(actionEvent -> System.exit(0));
         closeButton.setToolTipText("Close");
-        this.add(buttonPanel, "aligny top, alignx right");
-
-        WindowDragListener dragListener = new WindowDragListener(this);
-        this.addMouseListener(dragListener);
-        this.addMouseMotionListener(dragListener);
+        return buttonPanel;
     }
 
 }

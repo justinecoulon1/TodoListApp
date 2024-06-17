@@ -1,8 +1,6 @@
 package com.coulon.todo.app.utils.external;
 
-import com.coulon.todo.app.common.dto.CreateTodoListRequestDto;
-import com.coulon.todo.app.common.dto.TodoListDto;
-import com.coulon.todo.app.common.dto.TodoListElementDto;
+import com.coulon.todo.app.common.dto.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +17,7 @@ import java.util.List;
 public class BackEndRequestProcessor {
 
     public static final BackEndRequestProcessor INSTANCE = new BackEndRequestProcessor();
+    public static String SESSION_TOKEN = "";
 
     private final HttpClient client = HttpClient.newBuilder().build();
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -31,6 +30,7 @@ public class BackEndRequestProcessor {
         try {
             return HttpRequest.newBuilder()
                     .header("Content-Type", "application/json")
+                    .header("Session-Token", SESSION_TOKEN)
                     .uri(new URI(url))
                     .GET()
                     .build();
@@ -43,6 +43,7 @@ public class BackEndRequestProcessor {
         try {
             return HttpRequest.newBuilder()
                     .header("Content-Type", "application/json")
+                    .header("Session-Token", SESSION_TOKEN)
                     .uri(new URI(url))
                     .POST(HttpRequest.BodyPublishers.ofByteArray(objectMapper.writeValueAsBytes(body)))
                     .build();
@@ -94,7 +95,6 @@ public class BackEndRequestProcessor {
     public TodoListDto createTodoList(String todoListName) {
         CreateTodoListRequestDto body = new CreateTodoListRequestDto();
         body.setTodoListName(todoListName);
-        body.setUserName("JustineTest");
         try {
             HttpResponse<byte[]> response = sendPostRequest("http://localhost:8080/todo_list", body);
             return objectMapper.readValue(response.body(), TodoListDto.class);
@@ -124,6 +124,18 @@ public class BackEndRequestProcessor {
         try {
             HttpResponse<byte[]> response = sendPostRequest("http://localhost:8080/todo_list/element/update", todoListElementDto);
             return objectMapper.readValue(response.body(), TodoListDto.class);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public SessionDto logIn(String email, String password) {
+        try {
+            LogInRequestDto logInRequestDto = new LogInRequestDto();
+            logInRequestDto.setEmail(email);
+            logInRequestDto.setPassword(password);
+            HttpResponse<byte[]> response = sendPostRequest("http://localhost:8080/user/login", logInRequestDto);
+            return objectMapper.readValue(response.body(), SessionDto.class);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

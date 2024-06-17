@@ -1,12 +1,10 @@
-package com.coulon.todo.app.gui.panels.home;
+package com.coulon.todo.app.gui.panels.todolisthome;
 
 import com.coulon.todo.app.common.dto.TodoListDto;
 import com.coulon.todo.app.gui.AppPanels;
 import com.coulon.todo.app.utils.external.BackEndRequestProcessor;
-import com.coulon.todo.app.utils.ui.ButtonUtils;
 import com.coulon.todo.app.utils.ui.DisplayMode;
-import com.coulon.todo.app.utils.ui.TodoListAppConstants;
-import com.coulon.todo.app.utils.ui.images.ImageUtils;
+import com.coulon.todo.app.utils.ui.*;
 import com.coulon.todo.app.utils.ui.images.UiIcons;
 import net.miginfocom.swing.MigLayout;
 
@@ -15,7 +13,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 
 public class TodoListCardPanel extends JPanel {
 
@@ -64,26 +61,12 @@ public class TodoListCardPanel extends JPanel {
             }
         };
 
-        JLabel todoImageLabel = new JLabel();
-        todoImageLabel.setBackground(TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR);
-        todoImageLabel.setOpaque(true);
-        BufferedImage todoImage = ImageUtils.resizeImage(UiIcons.NORMAL_TODO.getImage(), 32, 32);
-        ImageIcon imageIcon = new ImageIcon(todoImage);
-        todoImageLabel.setIcon(imageIcon);
-        todoImageLabel.setBorder(BorderFactory.createLineBorder(TodoListAppConstants.BORDERS_AND_SEPARATOR_COLOR, 3));
+        JLabel todoImageLabel = LabelUtils.createImageLabelWithBorders(UiIcons.NORMAL_TODO.getImage(), 32, TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR, BorderFactory.createLineBorder(TodoListAppConstants.BORDERS_AND_SEPARATOR_COLOR, 3));
         this.add(todoImageLabel, "aligny center, alignx left, gapbefore 10");
 
-        todoListNameTextField = new JTextField();
-        todoListNameTextField.setText(todoListDto.getName());
-        todoListNameTextField.setBackground(getBackground());
-        todoListNameTextField.setFont(TodoListAppConstants.DEFAULT_FONT);
-        todoListNameTextField.setForeground(TodoListAppConstants.DARK_FONT_COLOR);
-        todoListNameTextField.setCaretColor(TodoListAppConstants.DARK_FONT_COLOR);
-        todoListNameTextField.setHorizontalAlignment(JTextField.LEFT);
-        todoListNameTextField.setOpaque(true);
+        todoListNameTextField = TextFieldUtils.createTextFieldWithoutBorderWithText(getBackground(), todoListDto.getName());
         todoListNameTextField.setEditable(false);
         todoListNameTextField.setFocusable(false);
-        todoListNameTextField.setBorder(null);
         todoListNameTextField.addMouseListener(buttonPanelVisibilityMouseAdapter);
         todoListNameTextField.addMouseListener(clickMouseAdapter);
         todoListNameTextField.addMouseListener(highlightMouseAdapter);
@@ -116,7 +99,7 @@ public class TodoListCardPanel extends JPanel {
         TodoListDto duplicatedTodoList = BackEndRequestProcessor.INSTANCE.createTodoList(todoListDto.getName());
         duplicatedTodoList.setTodoListElementDtos(todoListDto.getTodoListElementDtos());
         BackEndRequestProcessor.INSTANCE.updateTodoList(duplicatedTodoList);
-        AppPanels.HOME_MAIN_PANEL.getListDisplayPanel().addTodoListCardPanel(duplicatedTodoList);
+        AppPanels.TODO_LISTS_HOME_PANEL.getListDisplayPanel().addTodoListCardPanel(duplicatedTodoList);
     }
 
     private void handleDeleteButton(ActionEvent actionEvent) {

@@ -1,4 +1,4 @@
-package com.coulon.todo.app.gui.panels.home;
+package com.coulon.todo.app.gui.panels.todolisthome;
 
 import com.coulon.todo.app.common.dto.TodoListDto;
 import com.coulon.todo.app.utils.external.BackEndRequestProcessor;
@@ -8,18 +8,19 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import java.util.List;
 
-public class HomeMainPanel extends JPanel {
+public class TodoListsHomePanel extends JPanel {
 
     private final ListDisplayPanel listDisplayPanel = new ListDisplayPanel();
 
-    public HomeMainPanel() {
+    public TodoListsHomePanel() {
         this.setLayout(new MigLayout("fill, nogrid, ins 0"));
         this.setBackground(TodoListAppConstants.GENERAL_BACKGROUND_COLOR);
 
         this.add(new TodoListCreateButtonContainerPanel(), "growx, aligny top, wrap");
         this.add(listDisplayPanel, "grow, push");
 
-        refresh();
+//        refresh();
+
     }
 
     public ListDisplayPanel getListDisplayPanel() {

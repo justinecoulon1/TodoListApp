@@ -5,6 +5,7 @@ import org.springframework.data.repository.ListCrudRepository;
 
 public interface UserRepository extends ListCrudRepository<User, Long> {
 
-    User findByName(String userName);
+    User findByEmail(String email);
+    User findBySessionToken(String sessionToken);
 
 }

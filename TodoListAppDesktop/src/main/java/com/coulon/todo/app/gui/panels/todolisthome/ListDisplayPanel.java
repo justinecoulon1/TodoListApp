@@ -1,4 +1,4 @@
-package com.coulon.todo.app.gui.panels.home;
+package com.coulon.todo.app.gui.panels.todolisthome;
 
 import com.coulon.todo.app.common.dto.TodoListDto;
 import com.coulon.todo.app.utils.ui.TodoListAppConstants;
