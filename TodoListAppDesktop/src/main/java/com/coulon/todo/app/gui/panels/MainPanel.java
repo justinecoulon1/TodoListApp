@@ -28,6 +28,7 @@ public class MainPanel extends JPanel {
             BackEndRequestProcessor.SESSION_TOKEN = sessionDto.getToken();
             AppPanels.TODO_LISTS_HOME_PANEL.refresh();
             setDisplayedPanel(AppPanels.TODO_LISTS_HOME_PANEL);
+            AppPanels.SETTINGS_MAIN_PANEL.getLogOutPanel().updateEmail(CredentialsManager.INSTANCE.getCredentials().getEmail());
         } else {
             setDisplayedPanel(AppPanels.LOG_IN_DISPLAY_PANEL);
         }

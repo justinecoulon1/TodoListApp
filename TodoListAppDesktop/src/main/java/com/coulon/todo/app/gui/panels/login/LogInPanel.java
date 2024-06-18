@@ -1,4 +1,4 @@
-package com.coulon.todo.app.gui.panels.tabs.settings;
+package com.coulon.todo.app.gui.panels.login;
 
 import com.coulon.todo.app.common.dto.SessionDto;
 import com.coulon.todo.app.gui.AppPanels;
@@ -12,10 +12,12 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class LogInPanel extends JPanel {
+
+    private final JTextField emailTextField;
+    private final JPasswordField passwordTextField;
 
     public LogInPanel() {
         this.setLayout(new MigLayout("fill, nogrid, ins 0, gap 0"));
@@ -24,12 +26,23 @@ public class LogInPanel extends JPanel {
         JLabel emailLabel = LabelUtils.createTextLabel("Email: ", TodoListAppConstants.DEFAULT_FONT, getBackground(), TodoListAppConstants.DARK_FONT_COLOR);
         emailLabel.setHorizontalAlignment(JLabel.LEFT);
 
-        JTextField emailTextField = TextFieldUtils.createTextFieldWithBorder(getBackground());
-
         JLabel passwordLabel = LabelUtils.createTextLabel("Password: ", TodoListAppConstants.DEFAULT_FONT, getBackground(), TodoListAppConstants.DARK_FONT_COLOR);
         passwordLabel.setHorizontalAlignment(JTextField.LEFT);
 
-        JPasswordField passwordTextField = TextFieldUtils.createPasswordTextFieldWithBorder(getBackground());
+        emailTextField = TextFieldUtils.createTextFieldWithBorder(getBackground());
+        passwordTextField = TextFieldUtils.createPasswordTextFieldWithBorder(getBackground());
+
+        KeyListener enterKeyListener = new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    logIn(emailTextField.getText(), new String(passwordTextField.getPassword()));
+                }
+            }
+        };
+
+        emailTextField.addKeyListener(enterKeyListener);
+        passwordTextField.addKeyListener(enterKeyListener);
 
         this.add(emailLabel, "gaptop 5, gapleft 10, h 40!, w 80!");
         this.add(emailTextField, "gaptop 5, gapleft 10, gapright 10, h 40!, growx, wrap");
@@ -66,5 +79,9 @@ public class LogInPanel extends JPanel {
         BackEndRequestProcessor.SESSION_TOKEN = sessionDto.getToken();
         AppPanels.TODO_LISTS_HOME_PANEL.refresh();
         AppPanels.MAIN_PANEL.setDisplayedPanel(AppPanels.TODO_LISTS_HOME_PANEL);
+        AppPanels.SETTINGS_MAIN_PANEL.getLogOutPanel().updateEmail(email);
+        emailTextField.setText("");
+        passwordTextField.setText("");
     }
+
 }

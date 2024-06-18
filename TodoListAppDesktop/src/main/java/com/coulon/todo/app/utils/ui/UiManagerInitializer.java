@@ -13,7 +13,7 @@ public class UiManagerInitializer {
         ui.put("MenuItem.selectionBackground", TodoListAppConstants.DARK_HIGHLIGHT_COLOR);
         ui.put("MenuItem.foreground", TodoListAppConstants.LIGHT_FONT_COLOR);
         ui.put("MenuItem.selectionForeground", TodoListAppConstants.LIGHT_FONT_COLOR);
-        ui.put("MenuItem.selectionFont", TodoListAppConstants.SELECTED_DEFAULT_FONT);
+        ui.put("MenuItem.selectionFont", TodoListAppConstants.BOLD_DEFAULT_FONT);
         ui.put("MenuItem.opaque", true);
         ui.put("ToolTip.background", TodoListAppConstants.UI_ELEMENTS_BACKGROUND_COLOR);
         ui.put("ToolTip.foreground", TodoListAppConstants.LIGHT_FONT_COLOR);

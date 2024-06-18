@@ -1,6 +1,5 @@
 package com.coulon.todo.app.gui.panels.login;
 
-import com.coulon.todo.app.gui.panels.tabs.settings.LogInPanel;
 import com.coulon.todo.app.utils.ui.TodoListAppConstants;
 import net.miginfocom.swing.MigLayout;
 
@@ -23,7 +22,6 @@ public class LogInDisplayPanel extends JPanel {
 
         LogInPanel logInPanel = new LogInPanel();
         settingsContainerPanel.add(logInPanel, "h 190!, wrap, gaptop 3, growx");
-
     }
 
 }

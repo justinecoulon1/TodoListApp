@@ -23,7 +23,7 @@ public class TodoListAppConstants {
 
     // FONT
     public static final Font DEFAULT_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
-    public static final Font SELECTED_DEFAULT_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 15);
+    public static final Font BOLD_DEFAULT_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 15);
     public static final Font TITLE_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 26);
     public static final Font SMALL_TITLE_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 22);
 

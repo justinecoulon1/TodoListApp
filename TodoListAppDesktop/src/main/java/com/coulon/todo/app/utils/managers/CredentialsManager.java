@@ -47,4 +47,9 @@ public class CredentialsManager {
         }
     }
 
+    public void resetCredentials() {
+        credentialsJsonFile.delete();
+        credentials = null;
+    }
+
 }

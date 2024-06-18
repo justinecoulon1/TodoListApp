@@ -26,7 +26,7 @@ public class UserService {
     }
 
     public String logInUser(String email, String password) {
-        User user = userRepository.findByEmail(email);
+        User user = userRepository.findByEmailIgnoreCase(email);
         if (user == null) {
             throw new RuntimeException("User does not exist with email: " + email);
         }

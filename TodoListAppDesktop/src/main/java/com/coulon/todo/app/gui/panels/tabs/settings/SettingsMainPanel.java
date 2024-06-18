@@ -7,6 +7,8 @@ import javax.swing.*;
 
 public class SettingsMainPanel extends JPanel {
 
+    private final LogOutPanel logOutPanel;
+
     public SettingsMainPanel() {
         this.setLayout(new MigLayout("fill, nogrid, ins 0, gap 0"));
         this.setBackground(TodoListAppConstants.GENERAL_BACKGROUND_COLOR);
@@ -20,8 +22,12 @@ public class SettingsMainPanel extends JPanel {
         scrollPane.setBorder(null);
         this.add(scrollPane, "grow, push");
 
-        LogInPanel logInPanel = new LogInPanel();
-        settingsContainerPanel.add(logInPanel, "h 190!, wrap, gaptop 3, growx");
+        logOutPanel = new LogOutPanel();
+        settingsContainerPanel.add(logOutPanel, "h 135!, gaptop 3, growx, wrap");
+    }
+
+    public LogOutPanel getLogOutPanel() {
+        return logOutPanel;
     }
 
 }
