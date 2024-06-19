@@ -65,7 +65,7 @@ able to access the settings tab and the statistics tab (feature to come).
 
 ### Technical
 
-- [ ] Implement a way to log in the app.
+- [x] Implement a way to log in the app.
 - [ ] Handle translation.
 - [ ] Android app.
 - [ ] Browser app.
